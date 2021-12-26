@@ -1,5 +1,5 @@
 Type: Package
-Package: CatgoF
+Package: gofcat
 Title: Goodness-of-Fit Measures for Categorical Response Models
 Version: 0.1.0
 Authors@R: 
@@ -46,4 +46,5 @@ Suggests:
     mlogit,
     nnet,
     ordinal,
-    MASS
+    MASS,
+    testthat
