@@ -11,6 +11,8 @@ activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https:/
 [![license](https://img.shields.io/badge/license-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 [![R build
 status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://codecov.io/gh/ejikeugba/gofcat?branch=main)
 <!-- badges: end -->
 
 #### Overview
