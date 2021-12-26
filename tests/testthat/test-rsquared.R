@@ -1,5 +1,3 @@
-require(testthat)
-require(CatgoF)
 require(nnet)
 require(ordinal)
 require(MASS)
