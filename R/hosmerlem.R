@@ -86,7 +86,7 @@
 #' \code{\link{LR.test}}
 #'
 #' @examples
-#' require(CatgoF)
+#' require(gofcat)
 #' require(VGAM)
 #'
 #' # Binary L-H test
