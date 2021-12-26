@@ -9,6 +9,8 @@
 state and is being
 activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![license](https://img.shields.io/badge/license-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
+[![R build
+status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
 <!-- badges: end -->
 
 #### Overview
