@@ -1,10 +1,21 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # gofcat
 
 <!-- badges: start -->
-
 [![Project Status: Active – The project has reached a stable, usable
 state and is being
 activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -12,21 +23,8 @@ activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https:/
 <!-- badges: end -->
 
 #### Overview
+Crucial post-estimation (goodness-of-fit) tests for some widely used categorical response models (CRM) are implemented in this package. It currently supports inputs from objects of class serp(), clm(), polr(), multinom(), mlogit(), vglm() and glm(). Available tests include the Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic regression; the Lipsitz and the Pulkstenis-Robinson tests for the ordinal models. The proportional odds, adjacent-category, and constrained continuation-ratio models are particularly supported at ordinal level. Tests for the proportional odds assumptions in ordinal models are also possible with the Brant and the Likelihood-Ratio tests. Moreover, several summary measures of predictive strength (Pseudo R-squared), and some useful error metrics, including, the brier score, misclassification rate and logloss are also available for the binary, multinomial and ordinal models.
 
-Crucial post-estimation (goodness-of-fit) tests for some widely used
-categorical response models (CRM) are implemented in this package. It
-currently supports inputs from objects of class serp(), clm(), polr(),
-multinom(), mlogit(), vglm() and glm(). Available tests include the
-Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic
-regression; the Lipsitz and the Pulkstenis-Robinson tests for the
-ordinal models. The proportional odds, adjacent-category, and
-constrained continuation-ratio models are particularly supported at
-ordinal level. Tests for the proportional odds assumptions in ordinal
-models are also possible with the Brant and the Likelihood-Ratio tests.
-Moreover, several summary measures of predictive strength (Pseudo
-R-squared), and some useful error metrics, including, the brier score,
-misclassification rate and logloss are also available for the binary,
-multinomial and ordinal models.
 
 #### Example
 
@@ -51,7 +49,7 @@ lipsitz(sp, customFreq = rep(20, 10))
 # Pulkstenis-Robinson test
 pulkroben(sp, test = "chisq", tables = TRUE)
 pulkroben(sp, test = "deviance", tables = TRUE)
-```
+``` 
 
 ``` r
 ## Proportional odds test
@@ -109,8 +107,8 @@ Pull requests are welcomed! Please submit your contributions to `gofcat`
 through the list of `Pull Requests`, following the [contributing
 guidelines](https://ejikeugba.github.io/serp/CONTRIBUTING.html). To
 report issues and/or seek support, please file a new ticket in the
-[issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect
-a feedback ASAP!
+[issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect a
+feedback ASAP!
 
 #### Code of Conduct
 
@@ -120,17 +118,17 @@ By contributing to this project, you agree to abide by its terms.
 
 #### References
 
-Brant, R. (1990). Assessing proportionality in the proportional odds
-model for ordinal logistic regression. *Biometrics*, 46, 1171-1178.
+Brant, R. (1990). Assessing proportionality in the proportional odds model 
+for ordinal logistic regression. *Biometrics*, 46, 1171-1178. 
 <https://doi.org/10.2307/2532457>
 
-Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of
-fit in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
+Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of fit
+in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
 <https://doi.org/10.1177/1536867X1701700308>
 
-Ugba, E. R. and Gertheiss, J. (2018). An Augmented Likelihood Ratio
-Index for Categorical Response Models. In *Proceedings of 33rd
-International Workshop on Statistical Modelling*, Bristol, 293-298.
+Ugba, E. R. and Gertheiss, J. (2018). An Augmented Likelihood Ratio Index 
+for Categorical Response Models. In *Proceedings of 33rd International 
+Workshop on Statistical Modelling*, Bristol, 293-298.
 <http://www.statmod.org/workshops_archive_proceedings_2018.html>
 
 Ugba, E. R. (2021). serp: An R package for smoothing in ordinal
