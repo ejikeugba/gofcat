@@ -13,6 +13,8 @@ activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https:/
 status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://codecov.io/gh/ejikeugba/gofcat?branch=main)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=master&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
 <!-- badges: end -->
 
 #### Overview
@@ -111,8 +113,8 @@ library(gofcat)
 
 Pull requests are welcomed! Please submit your contributions to `gofcat`
 through the list of `Pull Requests`, following the [contributing
-guidelines](https://github.com/ejikeugba/gofcat/blob/main/contributing.md). 
-To report issues and/or seek support, please file a new ticket in the
+guidelines](https://ejikeugba.github.io/serp/CONTRIBUTING.html). To
+report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect
 a feedback ASAP!
 
