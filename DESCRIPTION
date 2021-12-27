@@ -47,4 +47,5 @@ Suggests:
     nnet,
     ordinal,
     MASS,
-    testthat
+    testthat,
+    covr
