@@ -4,11 +4,12 @@ output: github_document
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "man/figures/README-",
+  message = FALSE,
+  warning = FALSE,
   out.width = "100%"
 )
 ```
@@ -19,7 +20,6 @@ knitr::opts_chunk$set(
 [![Project Status: Active – The project has reached a stable, usable
 state and is being
 activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![license](https://img.shields.io/badge/license-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 [![R build status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
 [![Codecov test coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://codecov.io/gh/ejikeugba/gofcat?branch=main)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=main&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
@@ -81,13 +81,11 @@ Rsquared(sp, measure = "mcfadden")
 #### Installation and Use
 
 ##### Dependencies
-
 Before installing `gofcat`, it is encouraged to have a recent version of
 [R](https://cran.r-project.org/bin/windows/base/) installed. Also expect
 an automatic installation of some few dependencies.
 
 ##### Installation
-
 The development version of `gofcat` can be installed from
 [GitHub](https://github.com/ejikeugba/gofcat) with:
 
@@ -97,7 +95,6 @@ devtools::install_github("ejikeugba/gofcat")
 ```
 
 ##### Loading
-
 Load `gofcat` into R environment with:
 
 ``` r
@@ -110,8 +107,8 @@ Pull requests are welcomed! Please submit your contributions to `gofcat`
 through the list of `Pull Requests`, following the [contributing
 guidelines](https://ejikeugba.github.io/serp/CONTRIBUTING.html). To
 report issues and/or seek support, please file a new ticket in the
-[issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect a
-feedback ASAP!
+[issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect 
+a feedback ASAP!
 
 #### Code of Conduct
 
