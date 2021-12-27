@@ -75,7 +75,7 @@ ordinal Hosmer-Lemeshow test with the lipsitz and the Pulkstenis-Robinson
 tests (Fagerland and Hosmer, 2016; 2017).
 }
 \examples{
-require(CatgoF)
+require(gofcat)
 require(VGAM)
 
 # Binary L-H test
