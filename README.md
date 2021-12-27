@@ -14,7 +14,7 @@ status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](ht
 [![Codecov test
 coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://codecov.io/gh/ejikeugba/gofcat?branch=main)
 [![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=master&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
+status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=main&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
 <!-- badges: end -->
 
 #### Overview
