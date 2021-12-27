@@ -5,3 +5,5 @@
 ^\.github$
 ^contributing\.md$
 ^cran-comments\.md$
+^appveyor\.yml$
+^codecov\.yml$
