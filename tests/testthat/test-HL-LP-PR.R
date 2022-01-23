@@ -3,7 +3,7 @@ require(ordinal)
 require(VGAM)
 
 # test data
-data(retinopathy)
+data(retinopathy)    #compfn(model=vv, modeltype="vglm")
 attach(retinopathy)
 RET <- as.ordered(RET)
 SM <- as.factor(SM)
@@ -21,7 +21,7 @@ vg1 <- vglm(RET ~ DIAB + GH + BP, model = TRUE,
             family = multinomial(parallel = TRUE), data = retinopathy)
 gh <- update(vg1, family = poissonff(parallel = TRUE))
 sr <- update(vg1, family = sratio(parallel = TRUE))
-vv <- vglm(RET ~ DIAB, family = multinomial(parallel = TRUE),
+vv <- vglm(RET ~ DIAB, family = multinomial(parallel = TRUE), #model=T,
            data = retinopathy)
 f1 <- update(vv, family = multinomial(parallel = FALSE))
 f2 <- update(vv, family = cumulative(parallel = FALSE))
@@ -68,6 +68,7 @@ test_that("hosmerlem works properly on glm",
             expect_error(hosmerlem(gh))
             expect_error(hosmerlem(f1))
             expect_error(lipsitz(f2))
+            expect_error(pulkroben(f1))
             expect_error(pulkroben(f3))
             expect_error(pulkroben(f4))
 
