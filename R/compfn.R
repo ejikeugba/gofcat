@@ -10,8 +10,8 @@ compfn <- function(model, modeltype){
     m <- methods::slot(model, "model")
     if (is.matrix(m)) m <- as.data.frame(m)
     if (dim(m)[1L] == 0)
-      stop("original dataframe can't be found! consider adding model=TRUE
-           in vglm function and try rerunning the test", call. = FALSE)
+      stop("original dataframe not available! consider adding model=TRUE
+           in vglm function and try again", call. = FALSE)
     Terms <- methods::slot(model, "terms")
   } else {
     mc <- model$call
