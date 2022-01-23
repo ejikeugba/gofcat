@@ -129,19 +129,6 @@ zeros <- function(x.var, arg.data, m){
   }
 }
 
-rho.serp <- function(model, measure, modeltype)
-{
-  if (modeltype == "serp"){
-    L0 <- summary(model)$null.logLik
-    L1 <- model$logLik
-    if (is.na(L0) || is.na(L1) || L0==Inf || L1==Inf)
-      stop("Log-likelihood for computing R2 is not available", call. = FALSE)
-    rho <- L1/L0
-  }
-  rho
-}
-
-
 R2index <- function(model, measure, modeltype){
   loglk <- get_logLik(model)
   if (loglk$badlogL) stop("could not access model logLikelihood!")
@@ -155,6 +142,7 @@ R2index <- function(model, measure, modeltype){
   gp1 <- mi$gp1
   gp2 <- mi$gp2
   vr <- mi$vr
+  cp <- mi$cp
   err <- mi$err
   k <- mi$k
   n <- mi$n
@@ -179,8 +167,11 @@ R2index <- function(model, measure, modeltype){
   list(h1, h2)
 }
 
+
+
 modelInfo <- function(model, modeltype, measure)
 {
+  cp <- NULL
   if (modeltype == "glm"){
     k <- nlevels(factor(model$model[,1L]))
     n <- length(model$y)
@@ -233,12 +224,13 @@ modelInfo <- function(model, modeltype, measure)
     gp2  <- subset(cp, cp[,1] > 0)
     vr <- var(cp[,3])/(n/(n - 1))
     lk <- if (modeltype=="glm") model$family$link else VGAM::linkfun(model)
-    if (lk == "logit") err = ((pi)^{2})/3
-    else if (lk == "probit") err = 1
-    else if (lk == "cloglog") err = ((pi)^{2})/6
+
+    if (lk == "logit" || lk == "logitlink") err = ((pi)^{2})/3
+    else if (lk == "probit" || lk == "probitlink") err = 1
+    else if (lk == "cloglog" || lk == "clogloglink") err = ((pi)^{2})/6
     else if (measure == "mckelvey")
       stop("Unsupported link function!", call. = FALSE)
   }
-  list(k=k, n=n, p=p, gp1=gp1, gp2=gp2, vr=vr, err=err)
+  list(k=k, n=n, p=p, gp1=gp1, gp2=gp2, vr=vr, err=err, cp=cp)
 }
 
