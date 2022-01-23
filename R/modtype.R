@@ -4,10 +4,10 @@ modtype <- function(model, measure, call.fn)
     stop("passing multiple objects at a time is not allowed", call. = FALSE)
   mtype <- NULL
   if (inherits(model, what = "glm")){
-    if (call.fn == "Rsquared" && measure=="ugbagerth" &&
-        !(model$family$family=="binomial"))
-      stop("Requested R2 is only available for the binomial family",
-           call. = FALSE)
+    #if (call.fn == "Rsquared" && measure=="ugbagerth" &&
+    #    !(model$family$family=="binomial"))
+    #  stop("Requested R2 is only available for the binomial family",
+    #       call. = FALSE)
     if (call.fn == "hosmerlem" && !(model$family$family=="binomial"))
       stop("the intended test is only available for the binomial family",
            call. = FALSE)
@@ -73,10 +73,22 @@ modtype <- function(model, measure, call.fn)
   grpmod2 <- c("glm", "vglm","serp", "polr", "clm", "mlogit", "multinom")
   grpmod3 <- c("serp","vglm")
   grpmod4 <- c("serp", "polr", "clm", "vglm")
+  grpmod5 <- c("glm", "vglm")
+  if (call.fn == "Rsquared"){
+  mx <- c("mckelvey", "efron", "tjur")
+  if (measure %in% mx && !mtype %in% grpmod5)
+    stop("requested measure is not available for the supplied model",
+         call. = FALSE)}
   if (call.fn == "brant" && mtype %in% grpmod1) return(NA)
   if (call.fn == "erroR" && !mtype %in% grpmod2) return(NA)
   if (call.fn == "LRT"   && !mtype %in% grpmod3) return(NA)
   if (call.fn == "hosmerlem" && !mtype %in% grpmod2) return(NA)
   if (call.fn == "lp_pk" && !mtype %in% grpmod4) return(NA)
+  #if (call.fn == "Rsquared" && is.na(mtype))
+  #  stop("the supplied model is currently unsupported", call. = FALSE)
   mtype
 }
+
+
+
+
