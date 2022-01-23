@@ -141,39 +141,6 @@ rho.serp <- function(model, measure, modeltype)
   rho
 }
 
-sup.index <- function(model, measure, modeltype)
-{
-  ls1 <- c("coxsnell", "nagelkerke", "efron", "mckelvey", "tjur")
-  ls2 <- ls1[-c(1,2)]
-  errmessage <- c("the requested measure is not available for this class of model")
-  if (modeltype == "vglm" && any(measure == ls1))
-    stop(errmessage, call. = FALSE)
-  else if (modeltype == "multinom" && any(measure == ls2))
-    stop(errmessage, call. = FALSE)
-  else if (modeltype == "clm" && any(measure == ls2))
-    stop(errmessage, call. = FALSE)
-  else if (modeltype == "polr" && any(measure == ls2))
-    stop(errmessage, call. = FALSE)
-  else if (modeltype == "serp" && any(measure == ls1))
-    stop(errmessage, call. = FALSE)
-  else if (modeltype == "mlogit" && any(measure == ls2))
-    stop(errmessage, call. = FALSE)
-  if (modeltype == "serp" && measure == "mcfadden")
-    index <- 1 - rho.serp(model, measure, modeltype)
-  else if (measure == "mcfadden")
-    index <- performance::r2_mcfadden(model)
-  else if (measure == "coxsnell")
-    index <- performance::r2_coxsnell(model)
-  else if (measure == "efron")
-    index <- performance::r2_efron(model)
-  else if (measure == "mckelvey")
-    index <- performance::r2_mckelvey(model)
-  else if (measure == "nagelkerke")
-    index <- performance::r2_nagelkerke(model)
-  else if (measure == "tjur")
-    index <- performance::r2_tjur(model)
-  index
-}
 
 R2index <- function(model, measure, modeltype){
   loglk <- get_logLik(model)
