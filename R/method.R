@@ -16,37 +16,56 @@ print.Rsquared <- function(x, ...)
   if (object$measure == "mcfadden"){
     cat(crayon::blue("\nMcFadden's R2:", "\n"))
     cat(object$R2, "\n")
-    if (!is.na(object$adj)){
-      cat("\n")
-      cat(crayon::blue("adj.", "\n"))
-      cat(object$adj,"\n")
-    }
+    cat("\n")
+    cat(crayon::blue("adj.R2", "\n"))
+    cat(object$adj.R2,"\n")
   }
   else if (object$measure == "coxsnell"){
     cat(crayon::blue("\nCoxsnell's R2:", "\n"))
+    cat("\n")
     cat(object$R2, "\n")
   }
   else if (object$measure == "nagelkerke"){
     cat(crayon::blue("\nNagelkerke's R2:", "\n"))
+    cat("\n")
+    cat(object$R2, "\n")
+  }
+  else if (object$measure == "aldrich"){
+    cat(crayon::blue("\nAldrich & Nelson's R2:", "\n"))
+    cat("\n")
+    cat(object$R2, "\n")
+  }
+  else if (object$measure == "veall"){
+    cat(crayon::blue("\nVeall & Zimmermann's R2:", "\n"))
+    cat("\n")
     cat(object$R2, "\n")
   }
   else if (object$measure == "mckelvey"){
     cat(crayon::blue("\nMckelvey & Zavoina's R2:", "\n"))
+    cat("\n")
     cat(object$R2, "\n")
   }
   else if (object$measure == "efron"){
     cat(crayon::blue("\nEfron's R2:", "\n"))
+    cat("\n")
     cat(object$R2, "\n")
   }
   else if (object$measure == "tjur"){
     cat(crayon::blue("\nTjur's R2:", "\n"))
+    cat("\n")
     cat(object$R2, "\n")
   }
-  else if (object$measure == "ugbagerth"){
+  else if (object$measure == "ugba"){
     cat(crayon::blue("\nUgba & Gertheiss' R2:", "\n"))
-    cat(object$R2, "\n")
+    cat("\n")
+    cat(crayon::blue("(sqrt)", "\n"))
+    cat(object$sqrt.R2, "\n")
+    cat("\n")
+    cat(crayon::blue("(log)", "\n"))
+    cat(object$log.R2,"\n")
   }
 }
+
 
 #' Print method for an object of class brant
 #'
