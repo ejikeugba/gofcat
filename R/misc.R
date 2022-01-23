@@ -178,3 +178,67 @@ R2index <- function(model, measure, modeltype){
   if (!measure %in% ms) h2 <- NA
   list(h1, h2)
 }
+
+modelInfo <- function(model, modeltype, measure)
+{
+  if (modeltype == "glm"){
+    k <- nlevels(factor(model$model[,1L]))
+    n <- length(model$y)
+    p <- length(model$coefficients)
+    ft <- cbind(as.numeric_version(model$model[,1L]))
+    tr <- as.numeric(model$fitted.values)
+    lp <- as.numeric(model$linear.predictors)
+    cp <- as.matrix.data.frame(cbind(ft, tr, lp))
+  }
+  if (modeltype == "vglm"){
+    k <- length(model@misc$ynames)
+    n <- nrow(model@y)
+    p <- length(model@coefficients)
+
+    if (length(table(VGAM::model.frame(model)[,1L]))==2L){
+      ft <- cbind(as.numeric_version(VGAM::model.frame(model)[,1L]))
+      tr <- as.numeric(VGAM::fitted(model)[,2L])
+      lp <- as.numeric(VGAM::predictors(model))
+      cp <- as.matrix.data.frame(cbind(ft, tr, lp))
+    } else stop("measure is not available for multi-categorical models")
+  }
+  if (modeltype == "multinom"){
+    k <- length(model$lev)
+    n <- nrow(model$fitted.values)
+    p <- length(coef(model))
+  }
+  if (modeltype == "clm"){
+    k <- nlevels(model$y)
+    n <- model$n
+    p <- length(model$coefficients)
+  }
+  if (modeltype == "polr"){
+    k <- length(model$lev)
+    n <- model$n
+    p <- length(c(model$zeta, model$coefficients))
+  }
+  if (modeltype == "serp"){
+    k <- model$ylev
+    n <- model$nobs
+    p <- model$misc$npar
+  }
+  if (modeltype == "mlogit"){
+    k <- length(model$freq)
+    n <- length(model$fitted.values)
+    p <- length(model$coefficients)
+  }
+  gp1 <- gp2 <- vr <- err <- NA
+  if (modeltype=="glm" || modeltype=="vglm"){
+    gp1  <- subset(cp, cp[,1] < 1)
+    gp2  <- subset(cp, cp[,1] > 0)
+    vr <- var(cp[,3])/(n/(n - 1))
+    lk <- if (modeltype=="glm") model$family$link else VGAM::linkfun(model)
+    if (lk == "logit") err = ((pi)^{2})/3
+    else if (lk == "probit") err = 1
+    else if (lk == "cloglog") err = ((pi)^{2})/6
+    else if (measure == "mckelvey")
+      stop("Unsupported link function!", call. = FALSE)
+  }
+  list(k=k, n=n, p=p, gp1=gp1, gp2=gp2, vr=vr, err=err)
+}
+
