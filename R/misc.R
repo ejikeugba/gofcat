@@ -1,3 +1,25 @@
+get_logLik <- function(model){
+  bL <- FALSE
+  Lf <- try(logLik(model), silent = TRUE)
+  if (inherits(Lf,"try-error") || is.na(Lf) || is.infinite(Lf) || is.null(Lf))
+    Lf <- try(model$logLik, silent = TRUE)
+  suppressWarnings(capture <- capture.output(
+    L0 <- try(logLik(update(model, .~1)), silent = TRUE)))
+  if (inherits(L0,"try-error") || is.null(L0) || is.na(L0) || is.infinite(L0))
+    suppressWarnings(capture <- capture.output(
+      L0 <- as.numeric(try(update(model, .~1)$logLik, silent = TRUE))))
+  if (inherits(Lf,"try-error") ||
+      inherits(L0,"try-error") ||
+      is.na(L0) ||
+      is.na(Lf) ||
+      is.infinite(L0) ||
+      is.infinite(Lf)){
+    Lf <- L0 <- NA
+    bL <- TRUE
+  }
+  list(Lf=Lf, L0=L0, badlogL=bL)
+}
+
 splitter <- function(vlen, grp)
 {
   vec <- seq.int(vlen)
