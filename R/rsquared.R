@@ -1,7 +1,6 @@
 #' R-squared for Categorical Response Models
-#' @description computes the summary measures of predictive strength of
-#' several categorical outcome model. R-squared measures are computed based
-#' on suitability to the model under consideration.
+#' @description computes the summary measures of predictive strength (i.e., pseudo-R2s)
+#' of several categorical outcome models.
 #'
 #' @usage Rsquared(model, measure)
 #' @param model single model object for which R2 is determined.
@@ -9,15 +8,30 @@
 #' @details \code{Rsquared} provides different R2 indices for both binary and
 #' multi-categorical response models. Supported classes include: \code{glm},
 #' \code{vglm}, \code{clm}, \code{polr}, \code{multinom}, \code{mlogit},
-#' \code{serp}. Thus, mainly model families with binary and multi-categorical
-#' response are supported.
+#' \code{serp}. In other words, mainly models with binary or multi-categorical
+#' outcomes are supported. The non-likelihood based measures, including the Mckelvey,
+#' Tjur and Efron R2s are only available for binary models, while the rest of the
+#' measures (likelihood-based) are all available for both binary and
+#' multi-categorical models. The Ugba & Gertheiss's R2 in particular, computes
+#' the recently proposed modification of the popular Mcfadden's R2. The likelihood
+#' ratio index in the said R2 is penalized using either a square-root or logarithmic
+#' stabilizing function of the response category. The two approaches yield practically
+#' the same result.
 #' @return \item{measure}{the name of the R-squared calculated.}
 #' @return \item{R2}{realized value of the computed R2.}
 #' @return \item{adj}{adjusted R2, only available when McFadden's R2 is computed.}
+#' @return \item{sqrt.R2}{Modified R2 with a square root penalty, only available when
+#' the Ugba & Gertheiss's R2 is computed.}
+#' @return \item{log.R2}{Modified R2 with a logarithmic penalty, only available when
+#' the Ugba & Gertheiss's is computed.}
 #'
 #' @references
 #' Long, J.S. (1997). \emph{Regression Models for Categorical and Limited
 #'     Dependent Variables}. California: Sage Publications.
+#'
+#' Ugba, E. R. and Gertheiss, J. (2018). An Augmented Likelihood Ratio Index
+#' for Categorical Response Models. In \emph{Proceedings of 33rd International
+#' Workshop on Statistical Modelling}, Bristol, 293-298.
 #'
 #' @seealso
 #' \code{\link{erroR}}
@@ -28,40 +42,35 @@
 #' pom <- serp(ordered(RET) ~ DIAB + GH + BP, link="logit",
 #'             slope = "parallel", reverse = TRUE, data = retinopathy)
 #' Rsquared(pom, measure = "mcfadden")
-#' Rsquared(pom, measure = "ugbagerth")
+#' Rsquared(pom, measure = "ugba")
 #'
 #' @export
 #'
-Rsquared <- function (model, measure = c("ugbagerth",
-                                         "coxsnell", "mcfadden",
-                                         "nagelkerke", "mckelvey", "efron", "tjur"))
+Rsquared <- function (model, measure = c("ugba",
+                                         "mcfadden",
+                                         "coxsnell",
+                                         "nagelkerke",
+                                         "aldrich",
+                                         "veall",
+                                         "mckelvey",
+                                         "tjur",
+                                         "efron"))
 {
   function.name <- "Rsquared"
   mc <- match.call()
   measure <- match.arg(measure)
   modeltype <- modtype(model, measure, call.fn=function.name)
   if (is.na(modeltype))
-    return(message("the supplied model is currently unsupported"))
-  if (measure == "ugbagerth"){
-    if (modeltype == "serp"){rho <- rho.serp(model, measure, modeltype)}
-    else{
-      capture <- utils::capture.output(hh <- performance::r2_mcfadden(model))
-      mf <- if (length(hh)==1L) hh else hh$R2
-      mf <- as.numeric(mf)
-      rho <- 1 - mf
-    }
-    nct <- nlev(model, modeltype)
-    val <- 1 - rho^sqrt(2*nct)
-  } else val <- sup.index(model, measure, modeltype)
+    return(message("Unsupported object!"))
+  rr <- R2index(model, measure, modeltype)
+  qq <- round(c(as.numeric(rr[[1L]]), as.numeric(rr[[2L]])), 5L)
 
-  qq <- round(as.numeric(val),5L)
-  adj <- NULL
-  if (measure =="mcfadden"){
-    R2 <- qq[1L]
-    adj <- qq[2L]
-  } else R2 <- qq
-  ans <- list(measure=measure, R2=R2, adj=adj)
-  if (is.null(adj)) ans$adj <- NULL
+  if (measure == "mcfadden")
+    ans <- list(measure=measure, R2=qq[1L], adj.R2=qq[2L])
+  else if (measure == "ugba")
+    ans <- list(measure=measure, sqrt.R2=qq[1L], log.R2=qq[2L])
+  else
+    ans <- list(measure=measure, R2=qq[1L])
   class(ans) <- function.name
   ans
 }
