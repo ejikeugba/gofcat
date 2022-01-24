@@ -18,6 +18,7 @@ sm <- serp(as.ordered(RET) ~ factor(SM) + DIAB + GH + BP, link="logit", slope = 
 xg <- vglm(as.ordered(RET) ~ SM + DIAB + GH + BP, model=TRUE,
            family = cumulative(parallel = TRUE))
 capture <- capture.output(mm <- multinom(RET ~ SM + DIAB + GH + BP))
+
 #lipsitz(sp)
 context("To check if tests works properly on supported class of models")
 test_that("print methods works properly",
@@ -36,7 +37,6 @@ test_that("print methods works properly",
             expect_output(print.pulkroben(pulkroben(sm, test = "deviance", tables=TRUE)))
             expect_output(print.pulkroben(pulkroben(xg)))
             expect_output(suppressWarnings(print.pulkroben(pulkroben(sp))))
-            #expect_output(print.Rsquared(Rsquared(sm)))
 
             expect_error(erroR(sm, type = "misclass", thresh = "a"))
             expect_error(print.brant("js"))
