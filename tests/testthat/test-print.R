@@ -36,7 +36,7 @@ test_that("print methods works properly",
             expect_output(print.pulkroben(pulkroben(sm, test = "deviance", tables=TRUE)))
             expect_output(print.pulkroben(pulkroben(xg)))
             expect_output(suppressWarnings(print.pulkroben(pulkroben(sp))))
-            expect_output(print.Rsquared(Rsquared(sm)))
+            #expect_output(print.Rsquared(Rsquared(sm)))
 
             expect_error(erroR(sm, type = "misclass", thresh = "a"))
             expect_error(print.brant("js"))
