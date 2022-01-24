@@ -5,6 +5,10 @@
 #' @usage Rsquared(model, measure)
 #' @param model single model object for which R2 is determined.
 #' @param measure  selects any of the different measures available.
+#' @importFrom stats coef
+#' @importFrom stats logLik
+#' @importFrom stats var
+#' @importFrom utils capture.output
 #' @details \code{Rsquared} provides different R2 indices for both binary and
 #' multi-categorical response models. Supported classes include: \code{glm},
 #' \code{vglm}, \code{clm}, \code{polr}, \code{multinom}, \code{mlogit},
