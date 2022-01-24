@@ -3,7 +3,7 @@ require(ordinal)
 require(VGAM)
 
 # test data
-data(retinopathy)    #compfn(model=vv, modeltype="vglm")
+data(retinopathy)
 attach(retinopathy)
 RET <- as.ordered(RET)
 SM <- as.factor(SM)
