@@ -11,8 +11,6 @@ activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https:/
 [![license](https://img.shields.io/badge/license-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
 [![R build
 status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://codecov.io/gh/ejikeugba/gofcat?branch=main)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=main&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
 <!-- badges: end -->
@@ -125,10 +123,6 @@ Conduct](https://github.com/ejikeugba/gofcat/blob/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
 #### References
-
-Brant, R. (1990). Assessing proportionality in the proportional odds
-model for ordinal logistic regression. *Biometrics*, 46, 1171-1178.
-<https://doi.org/10.2307/2532457>
 
 Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of
 fit in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
