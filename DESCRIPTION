@@ -19,16 +19,13 @@ Description: A post-estimation method for categorical response models (CRM).
     Likelihood-Ratio tests. Moreover, several summary measures of predictive strength 
     (Pseudo R-squared), and some useful error metrics, including, the brier 
     score, misclassification rate and logloss are also available for the 
-    binary, multinomial and ordinal models. See the following references for 
-    further details about the implemented methods: Ugba, E. R. and Gertheiss, J. (2018) 
-    <http://www.statmod.org/workshops_archive_proceedings_2018.html>, 
-    Fagerland, M. W. and Hosmer, D. W. (2017) <doi:10.1177/1536867X1701700308>.
+    binary, multinomial and ordinal models. Ugba, E. R. and Gertheiss, J. (2018) 
+    <http://www.statmod.org/workshops_archive_proceedings_2018.html>.
 License: GPL-2 | file LICENSE
 Depends:
     R (>= 3.2.0)
 Imports:
     methods,
-    performance,
     utils,
     crayon,
     stats,
