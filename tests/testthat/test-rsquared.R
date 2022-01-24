@@ -46,14 +46,11 @@ bs <- glm(y ~ vol + rate, family=binomial)
 suppressWarnings(dd <- serp(fm, slope = "unparallel", subset=c(1:20)))
 
 lx <- list()
-
-
-
 context("To check if Rsquared works properly on supported class of models")
 test_that("Rsquared function works properly",
           {
             for(i in seq_along(idx))
-              lx[[i]] <- Rsquared(gl, measure=idx[i])
+              lx[[i]] <- Rsquared(gl, idx[i])
             expect_length(lx, 9)
             expect_message(Rsquared("rtt"))
             expect_error(Rsquared(list(gl,gl)))
