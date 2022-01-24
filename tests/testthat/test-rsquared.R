@@ -27,19 +27,16 @@ idx <- c("ugba", "mcfadden", "coxsnell", "nagelkerke", "aldrich", "veall",
 # test models
 gl <- glm(y ~ vol + rate, family=binomial)
 gx <- glm(y ~ vol + rate, family=binomial(link = "cauchit"))
-qs <- glm(y ~ vol + rate, family=poisson)
 fm <- formula(RET ~ SM + DIAB + GH + BP)
 
 sm <- serp(ordered(RET) ~ SM + DIAB + GH + BP, link="logit", slope = "parallel")
 capture <- capture.output(mm <- multinom(fm))
 cm1 <- clm(fm, link="logit")
-cm2 <- clm2(RET ~ SM + DIAB + GH + BP, link="logistic")
 pm  <- polr(fm, method="logistic")
 ml  <- mlogit(mode ~ price + catch, data = Fish)
 xg1 <- vglm(fm, family = sratio(link = "logitlink"))
 xg2 <- vglm(fm, family = VGAM::cumulative(parallel = TRUE, link = "clogloglink"))
 xg3 <- vglm(y ~ vol + rate, family=cumulative(link="probitlink"))
-#xg4 <- vglm(y ~ vol + rate, family=cumulative(link = "cauchit"))
 
 js <- lm(y ~ vol + rate)
 bs <- glm(y ~ vol + rate, family=binomial)
@@ -54,11 +51,9 @@ test_that("Rsquared function works properly",
             expect_length(lx, 9)
             expect_message(Rsquared("rtt"))
             expect_error(Rsquared(list(gl,gl)))
-            #expect_error(Rsquared(qs, measure="ugba"))
 
             expect_vector(Rsquared(sm, measure = "ugba")$sqrt.R2)
             expect_vector(nlev(model=sm, modeltype="serp"))
-            #expect_vector(sup.index(model=sm, measure="mcfadden", modeltype="serp"))
             expect_error(Rsquared(sm, measure = "tjur"))
 
             expect_vector(Rsquared(mm, measure = "coxsnell")$R2)
@@ -66,20 +61,17 @@ test_that("Rsquared function works properly",
             expect_error(Rsquared(mm, measure = "efron"))
 
             expect_vector(Rsquared(cm1, measure = "ugba")$log.R2)
-            #expect_vector(Rsquared(cm2, measure = "mcfadden")$R2)
             expect_error(Rsquared(cm1, measure = "efron"))
 
             expect_vector(Rsquared(pm, measure = "ugba")$sqrt.R2)
             expect_error(Rsquared(pm, measure = "tjur"))
 
-            #expect_vector(Rsquared(ml, measure = "mcfadden")$R2)
             expect_error(Rsquared(ml, measure = "efron"))
             expect_vector(nlev(model=ml, modeltype="mlogit"))
             expect_vector(hosmerlem(ml)[[1]])
 
             expect_error(Rsquared(xg1, measure = "mcfadden"))
             expect_equal(modtype(model=xg2, measure="ugba", call.fn="Rsquared"), "vglm")
-            #expect_error(sup.index(model=xg2, measure="tjur", modeltype="vglm"))
             expect_vector(modelInfo(model=xg3, modeltype="vglm", measure="mckelvey")$k)
             expect_vector(modelInfo(model=ml, modeltype="mlogit", measure="mcfadden")$k)
             expect_error(Rsquared(gx, measure = "mckelvey"))
@@ -95,5 +87,5 @@ test_that("Rsquared function works properly",
 
 detach(vaso)
 detach(retinopathy)
-rm(y, volume, rate, RET, SM, Fish, idx, gl, qs, lx, fm, sm, mm, cm1, cm2, pm, ml,
+rm(y, volume, rate, RET, SM, Fish, idx, gl, lx, fm, sm, mm, cm1, pm, ml,
    xg1, xg2, js, bs, dd)
