@@ -21,7 +21,7 @@ Description: A post-estimation method for categorical response models (CRM).
     score, misclassification rate and logloss are also available for the 
     binary, multinomial and ordinal models. Ugba, E. R. and Gertheiss, J. (2018) 
     <http://www.statmod.org/workshops_archive_proceedings_2018.html>.
-License: GPL-2 | file LICENSE
+License: GPL-2
 Depends:
     R (>= 3.2.0)
 Imports:
