@@ -1,2 +1,3 @@
 ## Re-submission
-- Package License is fixed
+- File License is removed as recommended
+- Tests and checks work properly as in the initial submission
