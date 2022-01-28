@@ -9,7 +9,7 @@
 state and is being
 activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Codecov test
-coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ejikeugba/gofcat?branch=master)
+coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/main/graph/badge.svg)](https://app.codecov.io/gh/ejikeugba/gofcat?branch=main)
 [![Total
 Downloads](http://cranlogs.r-pkg.org/badges/grand-total/gofcat)](https://CRAN.R-project.org/package=gofcat)
 [![CRAN
