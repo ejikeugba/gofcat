@@ -20,10 +20,14 @@ knitr::opts_chunk$set(
 [![Project Status: Active – The project has reached a stable, usable
 state and is being
 activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Codecov test coverage](https://codecov.io/gh/ejikeugba/gofcat/branch/master/graph/badge.svg)](https://app.codecov.io/gh/ejikeugba/gofcat?branch=master)
+[![Total Downloads](http://cranlogs.r-pkg.org/badges/grand-total/gofcat)](https://CRAN.R-project.org/package=gofcat)
+[![CRAN status](https://www.r-pkg.org/badges/version/gofcat )](https://CRAN.R-project.org/package=gofcat)
 [![license](https://img.shields.io/badge/license-GPL--2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.en.html)
-[![R build status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=main&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
+[![R build status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
 <!-- badges: end -->
+
 
 #### Overview
 Crucial post-estimation (goodness-of-fit) tests for some widely used categorical response models (CRM) are implemented in this package. It currently supports inputs from objects of class serp(), clm(), polr(), multinom(), mlogit(), vglm() and glm(). Available tests include the Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic regression; the Lipsitz and the Pulkstenis-Robinson tests for the ordinal models. The proportional odds, adjacent-category, and constrained continuation-ratio models are particularly supported at ordinal level. Tests for the proportional odds assumptions in ordinal models are also possible with the Brant and the Likelihood-Ratio tests. Moreover, several summary measures of predictive strength (Pseudo R-squared), and some useful error metrics, including, the brier score, misclassification rate and logloss are also available for the binary, multinomial and ordinal models.
