@@ -29,11 +29,11 @@ activelydeveloped](https://www.repostatus.org/badges/latest/active.svg)](https:/
 <!-- badges: end -->
 
 
-#### Overview
+### Overview
 Crucial post-estimation (goodness-of-fit) tests for some widely used categorical response models (CRM) are implemented in this package. It currently supports inputs from objects of class serp(), clm(), polr(), multinom(), mlogit(), vglm() and glm(). Available tests include the Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic regression; the Lipsitz and the Pulkstenis-Robinson tests for the ordinal models. The proportional odds, adjacent-category, and constrained continuation-ratio models are particularly supported at ordinal level. Tests for the proportional odds assumptions in ordinal models are also possible with the Brant and the Likelihood-Ratio tests. Moreover, several summary measures of predictive strength (Pseudo R-squared), and some useful error metrics, including, the brier score, misclassification rate and logloss are also available for the binary, multinomial and ordinal models.
 
 
-#### Example
+### Example
 
 ``` r
 require(serp)
@@ -82,30 +82,27 @@ Rsquared(sp, measure = "ugbagerth")
 Rsquared(sp, measure = "mcfadden")
 ```
 
-#### Installation and Use
+### Installation and Use
 
-##### Dependencies
-Before installing `gofcat`, it is encouraged to have a recent version of
-[R](https://cran.r-project.org/bin/windows/base/) installed. Also expect
-an automatic installation of some few dependencies.
+Before installing `gofcat`, it is encouraged to have a recent version of [R](https://cran.r-project.org/bin/windows/base/) installed. The released version of `gofcat` can be installed from [CRAN](https://cran.r-project.org/package=gofcat) with:
 
-##### Installation
-The development version of `gofcat` can be installed from
-[GitHub](https://github.com/ejikeugba/gofcat) with:
+``` r
+install.packages("gofcat")
+```
+
+or the development version from [GitHub](https://github.com/ejikeugba/gofcat) with:
 
 ``` r
 if (!require("devtools")) install.packages("devtools")
 devtools::install_github("ejikeugba/gofcat")
 ```
 
-##### Loading
 Load `gofcat` into R environment with:
-
-``` r
+```{r, eval = FALSE}
 library(gofcat)
 ```
 
-#### Community Guidelines
+### Community Guidelines
 
 Pull requests are welcomed! Please submit your contributions to `gofcat`
 through the list of `Pull Requests`, following the [contributing
@@ -114,13 +111,13 @@ report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect 
 a feedback ASAP!
 
-#### Code of Conduct
+### Code of Conduct
 
 Please note that `gofcat` is released with a [Contributor Code of
 Conduct](https://github.com/ejikeugba/gofcat/blob/main/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
 
-#### References
+### References
 
 Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of fit
 in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
