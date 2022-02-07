@@ -16,7 +16,7 @@
 #' @references
 #' Bender and  Grouven (1998), Using binary logistic regression models for
 #' ordinal data with non-proportional odds, \emph{J. Clin. Epidemiol.},
-#' 51, 809--816.
+#' 51, 809-816.
 #'
 #' @keywords dataset
 NULL
