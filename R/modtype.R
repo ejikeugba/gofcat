@@ -9,17 +9,18 @@ modtype <- function(model, measure, call.fn)
            call. = FALSE)
     mtype <- "glm"
   } else if (inherits(model, what = "vglm")){
-    cm <- familyname(model) == "cumulative"
-    ac <- familyname(model) == "acat"
-    cr <- familyname(model) == "cratio"
-    mn <- familyname(model) == "multinomial"
+    fname <- VGAM::familyname(model)
+    cm <- fname == "cumulative"
+    ac <- fname == "acat"
+    cr <- fname == "cratio"
+    mn <- fname == "multinomial"
     if (call.fn == "Rsquared"){
       if (!(cm || mn))
         stop("model family should be any of cumulative, propodds or " ,
              "multinomial.", call. = FALSE)
     }
     if (call.fn =="brant"|| call.fn =="LRT"){
-      if (!familyname(model) == "cumulative")
+      if (!fname == "cumulative")
         stop("model family should be either cumulative or propodds.",
              call. = FALSE)
       if (model@misc$parallel != TRUE)
