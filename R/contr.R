@@ -20,10 +20,11 @@ contr.fn <- function(model, group, customFreq, measure,
         y <- ordered(model@model[,1L])
       }
       if (call.fn=="hosmerlem" || call.fn=="erroR"){
-        cm <- VGAM::familyname(model) == "cumulative"
-        ac <- VGAM::familyname(model) == "acat"
-        cr <- VGAM::familyname(model) == "cratio"
-        mn <- VGAM::familyname(model) == "multinomial"
+        fname <- VGAM::familyname(model)
+        cm <- fname == "cumulative"
+        ac <- fname == "acat"
+        cr <- fname == "cratio"
+        mn <- fname == "multinomial"
         if (mn) {
           zz <- apply(model@y, 1L, function(rr) which(rr==TRUE))
           y <- factor(data.frame(zz)[,1L])
