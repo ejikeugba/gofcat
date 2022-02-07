@@ -14,7 +14,8 @@ get_logLik <- function(model){
       is.na(Lf) ||
       is.infinite(L0) ||
       is.infinite(Lf)){
-    Lf <- L0 <- NA
+    Lf <- NA
+    L0 <- NA
     bL <- TRUE
   }
   list(Lf=Lf, L0=L0, badlogL=bL)
@@ -129,9 +130,9 @@ zeros <- function(x.var, arg.data, m){
   }
 }
 
+
 R2index <- function(model, measure, modeltype){
   loglk <- get_logLik(model)
-  if (loglk$badlogL) stop("could not access model logLikelihood!")
   Lf <- loglk$Lf
   L0 <- loglk$L0
   dv <- -2 * Lf
@@ -147,27 +148,25 @@ R2index <- function(model, measure, modeltype){
   k <- mi$k
   n <- mi$n
   p <- mi$p
+  ms <- c("mcfadden", "ugba")
   if (measure == "mcfadden"){
     h1 <- 1 - rho
     h2 <- 1 - ((Lf-p)/L0)
   }
-  else if (measure == "ugba"){
+  if (measure == "ugba"){
     h1 <- 1 - (rho)^{sqrt(2*k)}
     h2 <- 1 - (rho)^{log2(2*k)}
   }
-  else if (measure == "nagelkerke") h1 <- (1 - exp((dv - d0)/n))/(1 - exp(-d0/n))
-  else if (measure == "coxsnell") h1 <- 1 - exp(-G2/n)
-  else if (measure == "aldrich") h1 <- G2 / (G2 + n)
-  else if (measure == "veall") h1 <- (G2 / (G2 + n)) * ((n - (2 * L0)) / (-2 * L0))
-  else if (measure == "mckelvey") h1 <- vr / (vr + err)
-  else if (measure == "efron") h1 <- 1 - (sum((cp[,1L] - cp[,2L])^{2}) / sum((cp[,1L] - mean(cp[,1L]))^{2}))
-  else if (measure == "tjur") h1 <- mean(gp2[,2L]) - mean(gp1[,2L])
-  ms <- c("mcfadden", "ugba")
+  if (measure == "nagelkerke") h1 <- (1 - exp((dv - d0)/n))/(1 - exp(-d0/n))
+  if (measure == "coxsnell") h1 <- 1 - exp(-G2/n)
+  if (measure == "aldrich") h1 <- G2 / (G2 + n)
+  if (measure == "veall") h1 <- (G2 / (G2 + n)) * ((n - (2 * L0)) / (-2 * L0))
+  if (measure == "mckelvey") h1 <- vr / (vr + err)
+  if (measure == "efron") h1 <- 1 - (sum((cp[,1L] - cp[,2L])^{2}) / sum((cp[,1L] - mean(cp[,1L]))^{2}))
+  if (measure == "tjur") h1 <- mean(gp2[,2L]) - mean(gp1[,2L])
   if (!measure %in% ms) h2 <- NA
-  list(h1, h2)
+  list(as.numeric(h1), as.numeric(h2))
 }
-
-
 
 modelInfo <- function(model, modeltype, measure)
 {
