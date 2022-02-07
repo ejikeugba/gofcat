@@ -7,50 +7,51 @@ require(VGAM)
 require(serp)
 
 # test data
-data(vaso)
-attach(vaso)
-y <- vaso$vaso
-y[vaso$vaso==2] <- 0
-volume <- vaso$vol
-rate <- vaso$rate
+vaso.new <- within(gofcat::vaso, {
+  vaso[vaso==2] <- 0
+  y <- vaso
+})
+retinopathy.new <- within(gofcat::retinopathy, {
+  RET <- as.ordered(RET)
+  SM <- as.factor(SM)
+})
+Fish <- dfidx::dfidx(gofcat::Fishing, varying = 2:9, shape = "wide", choice = "mode")
 
-data(retinopathy)
-attach(retinopathy)
-RET <- as.ordered(RET)
-SM <- as.factor(SM)
-data("Fishing", package = "mlogit")
-Fish <- dfidx::dfidx(Fishing, varying = 2:9, shape = "wide", choice = "mode")
-
-idx <- c("ugba", "mcfadden", "coxsnell", "nagelkerke", "aldrich", "veall",
-         "mckelvey", "efron", "tjur")
 
 # test models
-gl <- glm(y ~ vol + rate, family=binomial)
-gx <- glm(y ~ vol + rate, family=binomial(link = "cauchit"))
+gm <- glm(y ~ vol + rate, family=binomial(link = "logit"), data = vaso.new)
+gx <- glm(y ~ vol + rate, family=binomial(link = "cauchit"), data = vaso.new)
 fm <- formula(RET ~ SM + DIAB + GH + BP)
 
-sm <- serp(ordered(RET) ~ SM + DIAB + GH + BP, link="logit", slope = "parallel")
-capture <- capture.output(mm <- multinom(fm))
-cm1 <- clm(fm, link="logit")
-pm  <- polr(fm, method="logistic")
+sm <- serp(ordered(RET) ~ SM + DIAB + GH + BP, link="logit", slope = "parallel",
+           data = retinopathy.new)
+capture <- capture.output(mm <- multinom(fm, data = retinopathy.new))
+cm1 <- clm(fm, link="logit", data = retinopathy.new)
+pm  <- polr(fm, method="logistic", data = retinopathy.new)
 ml  <- mlogit(mode ~ price + catch, data = Fish)
-xg1 <- vglm(fm, family = sratio(link = "logitlink"))
-xg2 <- vglm(fm, family = VGAM::cumulative(parallel = TRUE, link = "clogloglink"))
-xg3 <- vglm(y ~ vol + rate, family=cumulative(link="probitlink"))
+xg1 <- vglm(fm, family = sratio(link = "logitlink"), data = retinopathy.new)
+xg2 <- vglm(fm, family = VGAM::cumulative(parallel = TRUE, link = "clogloglink"),
+            data = retinopathy.new)
+suppressWarnings(
+xg3 <- vglm(y ~ vol + rate, family=cumulative(link="probitlink"), data = vaso.new))
 
-js <- lm(y ~ vol + rate)
-bs <- glm(y ~ vol + rate, family=binomial)
-suppressWarnings(dd <- serp(fm, slope = "unparallel", subset=c(1:20)))
+js <- lm(y ~ vol + rate, data = vaso.new)
+bs <- glm(y ~ vol + rate, family=binomial, data = vaso.new)
 
+idx <- c("ugba", "mcfadden", "coxsnell", "nagelkerke", "aldrich", "veall",
+         "mckelvey", "tjur", "efron")
 lx <- list()
+
+
+
 context("To check if Rsquared works properly on supported class of models")
 test_that("Rsquared function works properly",
           {
             for(i in seq_along(idx))
-              lx[[i]] <- Rsquared(gl, idx[i])
-            expect_length(lx, 9)
+              lx[[i]] <- Rsquared(gm, idx[i])
+            expect_length(lx, 9L)
             expect_message(Rsquared("rtt"))
-            expect_error(Rsquared(list(gl,gl)))
+            expect_error(Rsquared(list(gm,gm)))
 
             expect_vector(Rsquared(sm, measure = "ugba")$sqrt.R2)
             expect_vector(nlev(model=sm, modeltype="serp"))
@@ -82,10 +83,6 @@ test_that("Rsquared function works properly",
               for(i in seq_along(idx))
                 lx[[i]] <- print.Rsquared(Rsquared(bs, measure=idx[i]))
             )
-            expect_error(Rsquared(dd, measure = "ugba"))
           })
-
-detach(vaso)
-detach(retinopathy)
-rm(y, volume, rate, RET, SM, Fish, idx, gl, lx, fm, sm, mm, cm1, pm, ml,
-   xg1, xg2, js, bs, dd)
+rm(vaso.new, Fish, gm, fm, sm, mm, cm1, pm, ml, idx, lx,
+   xg1, xg2, js, bs)

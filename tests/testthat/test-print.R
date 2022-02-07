@@ -3,10 +3,10 @@ require(VGAM)
 require(serp)
 
 # test data
-data(retinopathy)
-attach(retinopathy)
-RET <- as.ordered(RET)
-SM <- as.factor(SM)
+retinopathy.new <- within(gofcat::retinopathy, {
+  RET <- as.ordered(RET)
+  SM <- as.factor(SM)
+})
 
 # test models
 set.seed(1)
@@ -14,10 +14,12 @@ gl <- glm(rbinom(100,1,0.5) ~ rnorm(100), family=binomial)
 gm <- glm(rbinom(20,1,0.5) ~ rnorm(20), family=binomial)
 dt <- data.frame(y=ordered(rbinom(100,2,0.5)), x=factor(rbinom(100,3,0.5)))
 sp <- serp(dt, slope = "parallel")
-sm <- serp(as.ordered(RET) ~ factor(SM) + DIAB + GH + BP, link="logit", slope = "parallel")
-xg <- vglm(as.ordered(RET) ~ SM + DIAB + GH + BP, model=TRUE,
-           family = cumulative(parallel = TRUE))
-capture <- capture.output(mm <- multinom(RET ~ SM + DIAB + GH + BP))
+sm <- serp(RET ~ SM + DIAB + GH + BP, link="logit", slope = "parallel",
+           data = retinopathy.new)
+xg <- vglm(RET ~ SM + DIAB + GH + BP, model=TRUE,
+           family = cumulative(parallel = TRUE), data = retinopathy.new)
+capture <- capture.output(mm <- multinom(RET ~ SM + DIAB + GH + BP,
+                                         data = retinopathy.new))
 
 #lipsitz(sp)
 context("To check if tests works properly on supported class of models")
@@ -25,7 +27,6 @@ test_that("print methods works properly",
           {
             expect_output(print.brant(brant.test(sm, global="FALSE", call=TRUE)))
             expect_output(print.brant(brant.test(sm, global="TRUE")))
-            expect_output(print.LRT(LR.test(sm, call=TRUE)))
             expect_output(print.erroR(erroR(sm, type="logloss")))
             expect_output(print.erroR(erroR(sm, type="misclass")))
             expect_output(print.erroR(erroR(sm, type="brier")))
@@ -54,6 +55,4 @@ test_that("print methods works properly",
             expect_vector(pulkroben(sm, test = "deviance")[[1]])
             expect_message(LR.test(mm))
           })
-
-detach(retinopathy)
-rm(RET, SM, gl, gm, dt, sp, sm, xg, mm)
+rm(gl, gm, dt, sp, sm, xg, mm)

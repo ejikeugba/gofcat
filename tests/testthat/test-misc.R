@@ -3,16 +3,19 @@ require(MASS)
 require(serp)
 
 # test data
-data(retinopathy)
-attach(retinopathy)
-RET <- as.ordered(RET)
-SM <- as.factor(SM)
+retinopathy.new <- within(gofcat::retinopathy, {
+  RET <- as.ordered(RET)
+  SM <- as.factor(SM)
+} )
 
 # test models
-sm5 <- serp(as.ordered(RET) ~ SM + DIAB + GH + BP, link="logit", slope = "unparallel")
-sm6 <- serp(rating ~ contact + temp, link="logit", slope = "unparallel", data = serp::wine)
-capture <- capture.output(mm <- nnet::multinom(RET ~ SM + DIAB + GH + BP))
-pm <- polr(factor(RET) ~ SM + DIAB + GH + BP, method="logistic")
+sm5 <- serp(RET ~ SM + DIAB + GH + BP, link="logit", slope = "unparallel",
+            data = retinopathy.new)
+sm6 <- serp(rating ~ contact + temp, link="logit", slope = "unparallel",
+            data = serp::wine)
+capture <- capture.output(mm <- nnet::multinom(RET ~ SM + DIAB + GH + BP,
+                                               data = retinopathy.new))
+pm <- polr(factor(RET) ~ SM + DIAB + GH + BP, method="logistic", data = retinopathy.new)
 
 test_that("misc functions works as expected on models",
           {
@@ -26,6 +29,4 @@ test_that("misc functions works as expected on models",
 
             expect_vector(compfn(model=pm, modeltype="polr"))
           })
-
-detach(retinopathy)
-rm(RET, SM, sm5, sm6, mm, pm)
+rm(sm5, sm6, mm, pm)

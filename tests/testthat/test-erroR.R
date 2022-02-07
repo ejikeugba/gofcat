@@ -1,17 +1,17 @@
 require(VGAM)
 
 # test data
-data(retinopathy)
-attach(retinopathy)
-RET <- as.ordered(RET)
-SM <- as.factor(SM)
+retinopathy.new <- within(gofcat::retinopathy, {
+  RET <- as.ordered(RET)
+  SM <- as.factor(SM)
+} )
 
 # test models
 set.seed(1)
 vs <- glm(rbinom(100,1,0.5) ~ rnorm(100), family=binomial)
 md <- data.frame(factor(rbinom(100,2,0.5)), cbind(runif(100),runif(100),runif(100)))
 xg <- VGAM::vglm(RET ~ SM, model=TRUE,
-                 family = VGAM::cumulative(parallel = TRUE))
+                 family = VGAM::cumulative(parallel = TRUE), data = retinopathy.new)
 df <- data.frame(factor(rbinom(200,1,0.5)), rnorm(200))
 dp <- data.frame(factor(rbinom(200,2,0.5)), matrix(rnorm(600),200,3))
 
@@ -29,6 +29,4 @@ test_that("erroR function works properly on models",
             expect_warning(erroR(df))
             expect_warning(erroR(dp))
           })
-
-detach(retinopathy)
-rm(RET, SM, vs, md, xg)
+rm(vs, md, xg)
