@@ -92,4 +92,4 @@ test_that("hosmerlem works properly on glm",
             expect_error(pulkroben("cm"))
           })
 
-rm(gl1, gl2, vg, gp, cl, vg1, gh, sr, vv, f1, f2, f3, f4, cm)
+rm(retinopathy.new, gl1, gl2, vg, gp, cl, vg1, gh, sr, vv, f1, f2, f3, f4, cm)

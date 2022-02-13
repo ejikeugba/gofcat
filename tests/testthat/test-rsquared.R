@@ -19,6 +19,15 @@ Fish <- dfidx::dfidx(gofcat::Fishing, varying = 2:9, shape = "wide", choice = "m
 
 
 # test models
+mdat <- data.frame(
+  dose = c(0,2,4,6,8,10),
+  mortality = as.integer(c(0,0,9,14,16,20)),
+  survival = c(20,20,11,6,4,0)
+)
+fit <- glm( cbind(mortality, survival) ~ dose,
+            data = mdat,
+            family = "binomial")
+
 gm <- glm(y ~ vol + rate, family=binomial(link = "logit"), data = vaso.new)
 gx <- glm(y ~ vol + rate, family=binomial(link = "cauchit"), data = vaso.new)
 fm <- formula(RET ~ SM + DIAB + GH + BP)
@@ -32,8 +41,6 @@ ml  <- mlogit(mode ~ price + catch, data = Fish)
 xg1 <- vglm(fm, family = sratio(link = "logitlink"), data = retinopathy.new)
 xg2 <- vglm(fm, family = VGAM::cumulative(parallel = TRUE, link = "clogloglink"),
             data = retinopathy.new)
-suppressWarnings(
-xg3 <- vglm(y ~ vol + rate, family=cumulative(link="probitlink"), data = vaso.new))
 
 js <- lm(y ~ vol + rate, data = vaso.new)
 bs <- glm(y ~ vol + rate, family=binomial, data = vaso.new)
@@ -41,7 +48,6 @@ bs <- glm(y ~ vol + rate, family=binomial, data = vaso.new)
 idx <- c("ugba", "mcfadden", "coxsnell", "nagelkerke", "aldrich", "veall",
          "mckelvey", "tjur", "efron")
 lx <- list()
-
 
 
 context("To check if Rsquared works properly on supported class of models")
@@ -73,9 +79,11 @@ test_that("Rsquared function works properly",
 
             expect_error(Rsquared(xg1, measure = "mcfadden"))
             expect_equal(modtype(model=xg2, measure="ugba", call.fn="Rsquared"), "vglm")
-            expect_vector(modelInfo(model=xg3, modeltype="vglm", measure="mckelvey")$k)
             expect_vector(modelInfo(model=ml, modeltype="mlogit", measure="mcfadden")$k)
             expect_error(Rsquared(gx, measure = "mckelvey"))
+
+            expect_equal(class(hosmerlem(fit)), "hosmerlem")
+            expect_equal(class(Rsquared(fit)), "Rsquared")
 
             expect_error(print.Rsquared(js))
             lx <- list()
@@ -84,5 +92,5 @@ test_that("Rsquared function works properly",
                 lx[[i]] <- print.Rsquared(Rsquared(bs, measure=idx[i]))
             )
           })
-rm(vaso.new, Fish, gm, fm, sm, mm, cm1, pm, ml, idx, lx,
-   xg1, xg2, js, bs)
+rm(retinopathy.new, vaso.new, Fish, gm, fm, sm, mm, cm1, pm, ml, idx, lx,
+   xg1, xg2, js, bs, pneumo, mdat, fit)

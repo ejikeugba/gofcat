@@ -15,7 +15,6 @@ xg <- VGAM::vglm(RET ~ SM, model=TRUE,
 df <- data.frame(factor(rbinom(200,1,0.5)), rnorm(200))
 dp <- data.frame(factor(rbinom(200,2,0.5)), matrix(rnorm(600),200,3))
 
-
 test_that("erroR function works properly on models",
           {
             expect_vector(erroR(vs, type="brier")[[1]])
@@ -29,4 +28,4 @@ test_that("erroR function works properly on models",
             expect_warning(erroR(df))
             expect_warning(erroR(dp))
           })
-rm(vs, md, xg)
+rm(retinopathy.new, vs, md, xg, df, dp)

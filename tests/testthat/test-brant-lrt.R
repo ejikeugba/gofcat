@@ -10,15 +10,12 @@ retinopathy.new <- within(gofcat::retinopathy, {
 # test models
 xg1 <- vglm(RET ~ SM + DIAB + GH + BP,
             family = sratio(link = "logitlink"), data = retinopathy.new)
-xg2 <- vglm(RET ~ SM + DIAB + GH + BP,
-            family = cumulative(parallel = FALSE), data = retinopathy.new)
+xg2 <- suppressWarnings(vglm(RET ~ SM + DIAB + GH + BP,
+            family = cumulative(parallel = FALSE), data = retinopathy.new))
 xg3 <- vglm(RET ~ SM, model=TRUE,
             family = cumulative(parallel = TRUE), data = retinopathy.new)
-xg4 <- vglm(rating ~ contact + temp,
-            family = cumulative(parallel = TRUE), data = serp::wine)
-rr1 <- vglm(rating ~ contact * temp, model=TRUE,
-            family = cumulative(parallel = TRUE), data = serp::wine)
-
+rr1 <- suppressWarnings(vglm(rating ~ contact * temp, model=TRUE,
+            family = cumulative(parallel = TRUE), data = serp::wine))
 sm2 <- serp(rating ~ contact * temp, link="cauchit",
             slope = "parallel", data = serp::wine)
 sm3 <- serp(RET ~ SM*DIAB^10, link="logit",
@@ -37,12 +34,10 @@ test_that("brant and LR tests work properly",
             expect_error(modtype(model=xg2, measure="ugba", call.fn="brant"))
 
             expect_equal(attributes(LR.test(rr1))$class, "LRT")
-            expect_output(print.LRT(LR.test(rr1)))
             expect_message(LR.test("xgg"))
-            expect_error(LR.test(xg4))
             expect_error(LR.test(sm2))
             expect_error(LR.test(sm3))
             expect_message(LR.test(po1))
             expect_vector(compfn(model=xg3, modeltype="vglm"))
           })
-rm(xg1, xg2, xg3, xg4, rr1, sm2, sm3, sm4)
+rm(retinopathy.new, xg1, xg2, xg3, rr1, sm2, sm3, sm4, po1)

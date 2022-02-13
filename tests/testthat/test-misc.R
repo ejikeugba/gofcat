@@ -29,4 +29,4 @@ test_that("misc functions works as expected on models",
 
             expect_vector(compfn(model=pm, modeltype="polr"))
           })
-rm(sm5, sm6, mm, pm)
+rm(retinopathy.new, sm5, sm6, mm, pm)

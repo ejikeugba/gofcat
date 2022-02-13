@@ -21,7 +21,6 @@ xg <- vglm(RET ~ SM + DIAB + GH + BP, model=TRUE,
 capture <- capture.output(mm <- multinom(RET ~ SM + DIAB + GH + BP,
                                          data = retinopathy.new))
 
-#lipsitz(sp)
 context("To check if tests works properly on supported class of models")
 test_that("print methods works properly",
           {
