@@ -15,9 +15,12 @@
 #' the default equal group frequencies. The vector should, however, sum up to
 #' the total number of original observations.
 #' @importFrom VGAM familyname
+#' @importFrom VGAM depvar
 #' @importFrom reshape cast
 #' @importFrom stats predict
 #' @importFrom stats xtabs
+#' @importFrom stats formula
+#' @importFrom stats model.response
 #' @details
 #' The implemented tests are discussed in Hosmer and Lemeshow (1980)
 #' (for the binary case), Fagerland, Hosmer, and Bofin (2008);
@@ -95,7 +98,7 @@
 #' hosmerlem(gm, group = 10, customFreq = NULL, tables = TRUE)
 #'
 #' # multinomial L-H test
-#' vg <- vglm(RET ~ DIAB + GH + BP,
+#' vg <- vglm(RET ~ DIAB + GH + BP, model = TRUE,
 #'            family = multinomial(parallel = TRUE), data = retinopathy)
 #' hosmerlem(vg)
 #'
