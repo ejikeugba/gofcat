@@ -66,9 +66,12 @@ Rsquared <- function (model, measure = c("ugba",
   modeltype <- modtype(model, measure, call.fn=function.name)
   if (is.na(modeltype))
     return(message("Unsupported object!"))
+  cntr <- contr.fn(model, group=NULL, customFreq=NULL, measure,
+                   thresh=NULL, call.fn=function.name)
+  model <- cntr$model
   rr <- R2index(model, measure, modeltype)
   if (is.na(rr[[1L]])) message("Sadly, R2 computation didn't succeed.")
-  qq <- round(c(as.numeric(rr[[1L]]), as.numeric(rr[[2L]])), 5L)
+  qq <- round(unlist(rr), 5L)
   if (measure == "mcfadden")
     ans <- list(measure=measure, R2=qq[1L], adj.R2=qq[2L])
   else if (measure == "ugba")
