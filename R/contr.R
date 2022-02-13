@@ -2,53 +2,68 @@ contr.fn <- function(model, group, customFreq, measure,
                      thresh, call.fn)
 {
   modeltype <- modtype(model, measure, call.fn)
+  main.df <- fit <- model
   if (!is.na(modeltype)){
+    if (isS4(fit) && nrow(fit@model) == 0L) fit <- update(fit, model = TRUE)
+
+    uu <- if (isS4(fit)) fit@model else fit$model
+    if (!modeltype=="multinom"){
+      dmr <- is.null(dim(model.response(uu)))
+      if(!dmr){
+        new.dt <- longDt(fit, uu)
+
+        if (isS4(fit)) fit@model <- new.dt
+        else fit$model <- new.dt
+        fit <- stats::update(fit, resp ~ ., data=new.dt)
+      }
+    }
+    if (modeltype=="vglm" &&
+        length(unique(VGAM::model.frame(fit)[,1L]))==2L)
+      stop("binary models via vglm function are not supported! consider using glm function.")
     if (modeltype=="clm"){
-      y <- model$model[,1L]
-      var <- ncleaner(model$model[, -1L, drop = FALSE])
-      ypred <- try(data.frame(predict(model, newdata = var, type = "prob")$fit),
+      y <- fit$model[,1L]
+      var <- ncleaner(fit$model[, -1L, drop = FALSE])
+      ypred <- try(data.frame(predict(fit, newdata = var, type = "prob")$fit),
                    silent = TRUE)
       if (inherits(ypred, "try-error"))
         stop("in-formular factoring of categorical response is not allowed ",
              "for this particular model.",
              call. = FALSE)
     } else if (modeltype=="vglm"){
-      if (call.fn=="lipsitz" || call.fn=="pulkroben") {
-        if (nrow(model@model) == 0L)
-          stop("unable to access the original dataframe! consider adding model=TRUE ",
-               "in vglm function and rerun the test", call. = FALSE)
-        y <- ordered(model@model[,1L])
-      }
+      if (call.fn=="lipsitz" || call.fn=="pulkroben" ||
+          call.fn=="hosmerlem" )
+        y <- ordered(fit@model[,1L])
       if (call.fn=="hosmerlem" || call.fn=="erroR"){
-        fname <- VGAM::familyname(model)
+        fname <- VGAM::familyname(fit)
         cm <- fname == "cumulative"
         ac <- fname == "acat"
         cr <- fname == "cratio"
         mn <- fname == "multinomial"
         if (mn) {
-          zz <- apply(model@y, 1L, function(rr) which(rr==TRUE))
+          zz <- apply(VGAM::depvar(fit), 1L, function(rr) which(rr==TRUE))
           y <- factor(data.frame(zz)[,1L])
         }
         if (cm || ac || cr) {
-          zz <- apply(model@y, 1L, function(rr) which(rr==TRUE))
+          zz <- apply(VGAM::depvar(fit), 1L, function(rr) which(rr==TRUE))
           y <- ordered(data.frame(zz)[,1L])
         }
       }
-      ypred <- model@fitted.values
+      if (call.fn=="Rsquared") y <- fit@model[,1L]
+      ypred <- VGAM::fitted(fit)
     } else if (modeltype=="mlogit"){
-      ypred <- fitted(model, outcome = FALSE)
-      mtr <- matrix(model$model[,1L], dim(ypred), byrow = TRUE)
+      ypred <- fitted(fit, outcome = FALSE)
+      mtr <- matrix(fit$model[,1L], dim(ypred), byrow = TRUE)
       y <- factor(apply(mtr, 1L, function(rr) which(rr==TRUE)))
     } else if (modeltype=="multinom"){
-      ypred <- model$fitted.values
-      y <- factor(model.frame(model)[,1L])
+      ypred <- fit$fitted.values
+      y <- factor(model.frame(fit)[,1L])
       if (is.ordered(y)) y <- factor(y, ordered = FALSE)
     } else {
-      y <- factor(model$model[,1L])
-      ypred <- model$fitted.values
+      y <- factor(fit$model[,1L])
+      ypred <- fitted(fit)
     }
-    model <- data.frame(y, ypred)
-    colnames(model) <- c("y", colnames(ypred))
+   main.df <- data.frame(y, ypred)
+    colnames(main.df) <- c("y", colnames(ypred))
   } else {
     if (call.fn=="lipsitz")
       stop("lipsitz test is unavailable for this class of model.",
@@ -57,12 +72,12 @@ contr.fn <- function(model, group, customFreq, measure,
       stop("Pulkstenis-Robinson test is unavailable for this class of ",
            "model.", call. = FALSE)
   }
-  if (!is.data.frame(model))
+  if (!is.data.frame(main.df))
     stop("object should be of class data.frame.", call. = FALSE)
   if (is.na(modeltype)){
     hh <- 0
-    for(r in seq_len(ncol(model))){
-      hh[r] <- class(model[,r])[1L]
+    for(r in seq_len(ncol(main.df))){
+      hh[r] <- class(main.df[,r])[1L]
     }
     on <- c("ordered", "numeric")
     fn <- c("factor", "numeric")
@@ -72,20 +87,20 @@ contr.fn <- function(model, group, customFreq, measure,
       if (fc){
         fa <- which(hh=="factor")
         if (length(fa)==1L)
-          y <- model[,fa]
+          y <- main.df[,fa]
         else
           stop("multiple columns of factored or ordered categories found in the ",
                " given data.frame, whereas, it should be one.", call. = FALSE)
-        ypred <- model[,-fa]
+        ypred <- main.df[,-fa]
       }
       if (od){
         or <- which(hh=="ordered")
         if (length(or)==1L)
-          y <- model[,or]
+          y <- main.df[,or]
         else
           stop("multiple columns of factored or ordered categories found in the ",
                "given data.frame, whereas it should be one.", call. = FALSE)
-        ypred <- model[,-or]
+        ypred <- main.df[,-or]
       }
     } else stop("provide a model object or a data.frame with a column of ",
                 "factored/ordered observations and numeric column of fitted values.", call. = FALSE)
@@ -143,9 +158,16 @@ contr.fn <- function(model, group, customFreq, measure,
       ypred <- if (classx=="multiclass") ypred/rowSums(ypred) else ypred
     }
   }
-  if (call.fn=="erroR" || call.fn=="pulkroben") group <- 1e1
-  if (call.fn=="hosmerlem" || call.fn=="lipsitz" || call.fn=="pulkroben")
+  if (call.fn=="erroR" || call.fn=="Rsquared" || call.fn=="pulkroben") group <- 1e1
+  if (call.fn=="hosmerlem" || call.fn=="lipsitz" || call.fn=="pulkroben" ||
+      call.fn=="Rsquared")
     thresh <- 1e-1
+  nonLik.measures <- c("mckelvey", "efron", "tjur")
+  if (call.fn=="Rsquared"){
+    if (any(measure == nonLik.measures) && classx == "multiclass")
+      stop("measure not available for multi-categorical response models",
+           call. = FALSE)
+  }
   if (group < 2L) stop("it's not possible to run this test on one group",
                       call. = FALSE)
   if(!is.numeric(thresh) || thresh < 0L || thresh > 1L)
@@ -162,5 +184,5 @@ contr.fn <- function(model, group, customFreq, measure,
                "declared in dataset or model.")
   fail <- c("unsuccessful! the original model could not be updated.")
   list(y=y, ypred=ypred, freq=freq, ord=ord, catg=classx, obs=n, group=group,
-       mt=modeltype, nL=nL, thresh=thresh, catpred=catpred, fail=fail)
+       mt=modeltype, nL=nL, thresh=thresh, catpred=catpred, fail=fail, model=fit)
 }
