@@ -53,7 +53,7 @@ erroR <- function(model, type = c("brier", "logloss", "misclass"), thresh = 5e-1
   function.name <- "erroR"
   type <- match.arg(type)
   cntr <- contr.fn(model, group=NULL, customFreq=NULL, measure=NULL,
-                     thresh, call.fn="erroR")
+                     thresh, call.fn = function.name)
   ypred <- cntr$ypred
   y <- cntr$y
   if (cntr$catg=="binary"){
