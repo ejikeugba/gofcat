@@ -52,8 +52,9 @@ LR.test <- function (model, call=FALSE)
     df <- sp.av$df[-1L]
     pv <- sp.av$`Pr(Chi)`[-1L]
   } else {
+    suppressWarnings(
     npom <- try(stats::update(model, family = VGAM::cumulative(parallel = FALSE)),
-                silent = TRUE)
+                silent = TRUE))
     if (inherits(npom, "try-error"))
       stop("LRT can't be obtained, the general model is unavailable",
            call. = FALSE)
@@ -61,7 +62,7 @@ LR.test <- function (model, call=FALSE)
     if (is.na(qq) || !is.finite(qq))
       stop("LRT can't be obtained, log-likelihoods are unavailable",
            call. = FALSE)
-    vg.av <- VGAM::anova.vglm(model, npom, type = 1)
+    vg.av <- VGAM::anova.vglm(model, npom, type = 1L)
     dev <- vg.av$`Resid. Dev`
     rdf <- vg.av$`Resid. Df`
     df <- vg.av$Df[-1L]
