@@ -47,7 +47,8 @@ The parallel regression assumption for the ordinal regression  model
 can be tested With this function. The brant test (Brant, 1990) is currently
 available for objects of class: serp(), clm(), polr() and vglm(). Objects of class
 serp() should have the \code{slope} argument set to 'parallel', while objects of
-class vglm() should have the \code{model} argument TRUE. Moreover, family in
+class vglm() should have the \code{model} argument TRUE, if not, the model is
+automatically updated to include the object 'model'. Moreover, family in
 vglm() must be either "cumulative" or "propodds", with the parallel argument TRUE.
 }
 \examples{
