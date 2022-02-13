@@ -12,7 +12,8 @@
 #' can be tested With this function. The brant test (Brant, 1990) is currently
 #' available for objects of class: serp(), clm(), polr() and vglm(). Objects of class
 #' serp() should have the \code{slope} argument set to 'parallel', while objects of
-#' class vglm() should have the \code{model} argument TRUE. Moreover, family in
+#' class vglm() should have the \code{model} argument TRUE, if not, the model is
+#' automatically updated to include the object 'model'. Moreover, family in
 #' vglm() must be either "cumulative" or "propodds", with the parallel argument TRUE.
 #' @return \item{model}{call of the model tested}
 #' @return \item{df}{the degrees of freedom}
@@ -66,7 +67,7 @@ brant.test <- function (model, global = FALSE, call = FALSE)
   x.var <- names(m)[-1L]
   arg.data <- data.frame(m, y)
   zeros(x.var, arg.data, m)
-  J <- max(y, na.rm=TRUE)
+  J <- length(unique(y, na.rm=TRUE))
   K <- length(cf$est)
   for(u in 1:(J-1)){
     arg.data[[paste0("g", u)]] <- ifelse(y > u, 1, 0)
@@ -84,13 +85,12 @@ brant.test <- function (model, global = FALSE, call = FALSE)
   X <- cbind(1, x)
   fv <- matrix(NA, nrow=cf$n, ncol=J-1, byrow=T)
   for(u in 1:(J-1)){
-    fv[,u] <- sep.mod[[u]]$fitted.values
+    fv[,u] <- fitted(sep.mod[[u]])
   }
   model <- cf$model
   mi <- cf$mi
   sM <- chi2.fn(model, global, modeltype, deltaHat, varHat, fv, mi, X, K, J)
-  Terms <- if (modeltype=="vglm")
-    methods::slot(model, "terms")$terms else model$terms
+  Terms <- stats::terms(model)
   vnames <- names(cf$est)
 
   ans <- list(Terms=Terms, global=global, modeltype=modeltype, model=mc,
