@@ -78,7 +78,7 @@ erroR(df, type = "misclass", thresh = 0.7)
 
 ``` r
 ## Summary metrics
-Rsquared(sp, measure = "ugbagerth")
+Rsquared(sp, measure = "ugba")
 Rsquared(sp, measure = "mcfadden")
 ```
 
@@ -121,7 +121,6 @@ By contributing to this project, you agree to abide by its terms.
 
 Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of fit
 in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
-<https://doi.org/10.1177/1536867X1701700308>
 
 Ugba, E. R. and Gertheiss, J. (2018). An Augmented Likelihood Ratio Index 
 for Categorical Response Models. In *Proceedings of 33rd International Workshop on Statistical Modelling*, Bristol, 293-298.
