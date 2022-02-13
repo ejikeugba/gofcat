@@ -9,8 +9,7 @@ chi2.fn <- function(model, global, modeltype, deltaHat,
     solve(D %*% deltaVar %*% t(D)) %*% (D %*% deltaStar)
   df.v <- (J - 2) * K
   if(global){
-    Terms <- if(modeltype=="vglm")
-      methods::slot(model, "terms")$terms else model$terms
+    Terms <- stats::terms(model)
     modmx <- stats::model.matrix(Terms, mi)
     var <- attr(modmx,"assign")[-1L]
     mix <- data.frame(r = c(1:length(var)), var=var)
