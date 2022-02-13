@@ -19,7 +19,7 @@ logistic regression models."><!-- mathjax --><script src="https://cdnjs.cloudfla
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gofcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -204,7 +204,7 @@ tests (Fagerland and Hosmer, 2016; 2017).</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># multinomial L-H test</span></span>
-<span class="r-in"><span class="va">vg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/VGAM/man/vglm.html" class="external-link">vglm</a></span><span class="op">(</span><span class="va">RET</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>,</span>
+<span class="r-in"><span class="va">vg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/VGAM/man/vglm.html" class="external-link">vglm</a></span><span class="op">(</span><span class="va">RET</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>, model <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span class="r-in">           family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/VGAM/man/multinomial.html" class="external-link">multinomial</a></span><span class="op">(</span>parallel <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">retinopathy</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">hosmerlem</span><span class="op">(</span><span class="va">vg</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

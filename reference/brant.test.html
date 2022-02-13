@@ -19,7 +19,7 @@ LR.test()."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gofcat</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.1.2</span>
       </span>
     </div>
 
@@ -95,7 +95,8 @@ variables instead of the individual factor levels.</p></dd>
 can be tested With this function. The brant test (Brant, 1990) is currently
 available for objects of class: serp(), clm(), polr() and vglm(). Objects of class
 serp() should have the <code>slope</code> argument set to 'parallel', while objects of
-class vglm() should have the <code>model</code> argument TRUE. Moreover, family in
+class vglm() should have the <code>model</code> argument TRUE, if not, the model is
+automatically updated to include the object 'model'. Moreover, family in
 vglm() must be either "cumulative" or "propodds", with the parallel argument TRUE.</p>
     </div>
     <div id="references">
