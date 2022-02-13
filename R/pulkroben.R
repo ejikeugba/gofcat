@@ -83,6 +83,7 @@ pulkroben <- function (model, test = c("chisq", "deviance"),
   cntr <- contr.fn(model, group=NULL, customFreq=NULL, measure=NULL,
                    thresh=NULL, call.fn=function.name)
   ypred <- cntr$ypred
+  model <- cntr$model
   y <- cntr$y
   cn <- colnames(ypred)
   if (cntr$mt=="vglm") {
