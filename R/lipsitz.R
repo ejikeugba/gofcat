@@ -84,6 +84,7 @@ lipsitz <- function(model, group = 10, customFreq = NULL)
   function.name <- "lipsitz"
   cntr <- contr.fn(model, group, customFreq, measure=NULL,
                    thresh=NULL, call.fn=function.name)
+  model <- cntr$model
   ypred <- cntr$ypred
   group <- cntr$group
   y <- cntr$y
@@ -100,13 +101,13 @@ lipsitz <- function(model, group = 10, customFreq = NULL)
   if (cntr$mt=="vglm") {
     origMod@model$grp <- dt$group
     origMod@model <- ncleaner(origMod@model)
-    newMod <- try(update(origMod, . ~ . + grp, data = origMod@model),
-                  silent = TRUE)
+    newMod <- suppressWarnings(try(update(origMod, . ~ . + grp, data = origMod@model),
+                  silent = TRUE))
   } else {
     origMod$model$grp <- dt$group
     origMod$model <- ncleaner(origMod$model)
-    newMod <- try(update(origMod, . ~ . + grp, data = origMod$model),
-                  silent = TRUE)
+    newMod <- suppressWarnings(try(update(origMod, . ~ . + grp, data = origMod$model),
+                  silent = TRUE))
   }
   if (inherits(newMod, "try-error")) stop(cntr$fail)
   if (cntr$mt == "serp" || cntr$mt == "polr")
