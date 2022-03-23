@@ -64,6 +64,7 @@ hosmerlem(RET.fit, tables = TRUE)
 ### lipsitz()
 This function computes the Lipsitz test for the ordinal models [@lipsitz_goodness_1996]. In this test, one also splits the observations into $k$ separate groups using the ordinal scores of the estimated values. An indicator variable denotes the observations belonging to each group, producing additional pseudo-variables with which the original model could be updated. Supposing the original model fits correctly, then the coefficients of the pseudo-variables all equal zero. The likelihood ratio statistic obtained from the log-likelihoods of the original and the refitted models is subsequently compared with the chi-square distribution having $k - 1$ degree of freedom. In contrast to the LH test, the Lipsitz test for the RET.fit is not statistically significant $(p = 0.4593)$, implying that no lack of fit was detected. More explanation on this follows shortly.
 {r, eval = TRUE} lipsitz(RET.fit)
+
 ```{r, eval = TRUE}
 lipsitz(RET.fit)
 ```
@@ -79,16 +80,18 @@ So far, two out of the three GOF tests (HL and PR) for the RET.fit suggest a pos
 
 ### brant.test()
 This, together with the 'LR.test() function' provides the means of testing the parallel regression assumption in the ordinal regression models. The former follows the procedures outlined in @brant_assessing_1990, also see the explanations in the Section 2 of @ugba_smoothing_2021. The brant test of the RET.fit (Omnibus) is significant (p = 0.035), indicating that the proportional odds assumption is violated. This is also confirmed by the likelihood ratio test (p = 0.0198). However, a closer look at the individual variables in the brant test shows that the non proportionality is primarily driven by the only categorical variable (smoking) in the model, which, as earlier observed, wasn't a significant predictor in the model.
+
 ```{r, eval = TRUE}
 brant.test(RET.fit)
 
-# Alternatively with Likelihood ratio test
+Alternatively with Likelihood ratio test
 LR.test(RET.fit, call = TRUE)
 ```
 
 
 ### Rsquared()
 Several summary measures of predictive strength of CRMs (pseudo-R^2) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@ugba_modification_2022; @mcFadden_conditional_1974]. These measures were obtained for the RET.fit and shown below. The Ugba & Gertheiss' $R^2$, in particular, reports a moderately good fit, with the proportional reduction in the "-2 loglikelihood statistics" up to 42%. Where the quantity in quotation represents the error variation of the model with only the intercept present [see, @ugba_modification_2022; @menard_coefficients_2000]. 
+
 ```{r, eval = TRUE}
 Rsquared(RET.fit, measure = "mcfadden")
 Rsquared(RET.fit, measure = "ugba")
@@ -96,6 +99,7 @@ Rsquared(RET.fit, measure = "ugba")
 
 ### erroR()
 This function calculates some useful error metrics of fitted binary and multi-categorical response models. Available measures include the brier score [@brier_verification_1950], the cross-entropy loss (log loss) and the misclassification error. Once again, considering the RET.fit, the obtained metrics suggest a moderately performed fit.
+
 ```{r, eval = TRUE}
 erroR(RET.fit, type = "brier")
 erroR(RET.fit, type = "logloss")
