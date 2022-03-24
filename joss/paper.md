@@ -107,7 +107,7 @@ erroR(RET.fit, type = "misclass")
 
 
  POM          |      B    |   SE-B   | Pr(>$|z|$)   |
-:-------------|----------:|---------:|-------------:|
+:-------------|:----------|:---------|:-------------|
  (Intercept):1|   12.303  |    1.290 |  0.000  ***  |
  (Intercept):2|   13.673  |    1.317 |  0.000  ***  |
  SM1          |   -0.255  |    0.192 |  0.184       |
@@ -120,7 +120,7 @@ Table: Proportional odds model (POM) of the retinopathy dataset with accompanyin
 
 
  Hypothesis Tests   |   Chi-sq    |    df       |  pr(>chi)   |
-:-------------------|------------:|------------:|------------:|
+:-------------------|:------------|:------------|:------------|
  HL                 | 32.148      |    17       | 0.014 *     |
  Lipsitz            |  8.764      |     9       | 0.459       |
  PR                 | 13.094      |     4       | 0.011 *     |
@@ -128,7 +128,7 @@ Table: Proportional odds model (POM) of the retinopathy dataset with accompanyin
 
  
  Brant Test    |    chi-sq   |    df    |  pr(>chi)  |
-:--------------|------------:|---------:|-----------:|
+:--------------|:------------|:---------|:-----------|
  Omnibus       |   10.38     |    4     |  0.035 *   |
  SM1           |    4.99     |    1     |  0.026 *   |
  DIAB          |    2.21     |    1     |  0.137     |
@@ -137,15 +137,15 @@ Table: Proportional odds model (POM) of the retinopathy dataset with accompanyin
 
 
  
-  LR-Test |   rdf      |  rdev    |   LRT      |   df      |  pr(>chi)   |
-:---------|-----------:|---------:|-----------:|----------:|------------:|
-   POM    |   1220     |  904.14  |            |           |             |
-   NPOM   |   1216     |  892.45  |   11.69    |   4       |   0.0198 *  |
+  LR-Test |    LRT     |   df      |  pr(>chi)   |
+:---------|:-----------|:----------|:------------|
+   POM    |            |           |             |
+   NPOM   |   11.69    |   4       |   0.0198 *  |
 
 
 
  R2 and Error Measures    |   value  |
-:-------------------------|---------:|
+:-------------------------|:---------|
  McFadden's R2            |   0.191  |
  Ugba & Gertheiss' R2     |   0.421  |
  Brier Score              |   0.427  |
