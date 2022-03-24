@@ -60,7 +60,7 @@ summary(RET.fit)
  GH           |   -0.460  |    0.074 |  0.000  ***  |
  BP           |   -0.072  |    0.014 |  0.000  ***  |
 
-Table: Proportional odds model (POM) of the retinopathy dataset with accompanying hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit.  
+Table: Proportional odds model (POM) of the retinopathy dataset with accompanying hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit. The significance code "***" indicates values < 0.001.  
 
 
 ## Post Estimation Tests
@@ -117,7 +117,7 @@ erroR(RET.fit, type = "logloss")
 erroR(RET.fit, type = "misclass")
 ```
 
-Table: Post-estimation tests for the proportional odds model (POM) of the retinopathy dataset, featuring hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit.  
+Table: Post-estimation tests for the proportional odds model (POM) of the retinopathy dataset, featuring hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit. The significance code "*" indicates values < 0.05.  
 
 
  Hypothesis Tests   |   Chi-sq    |    df       |  pr(>chi)   |
