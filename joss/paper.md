@@ -89,7 +89,7 @@ LR.test(RET.fit, call = TRUE)
 
 
 ### Rsquared()
-Several summary measures of predictive strength of CRMs (pseudo-R^2) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@ugba_modification_2022; @mcFadden_conditional_1974]. These measures were obtained for the RET.fit (see Table1). The Ugba & Gertheiss' $R^2$, in particular, reports a moderately good fit, with the proportional reduction in the "-2 loglikelihood statistics" up to 42%. Where the quantity in quotation represents the error variation of the model with only the intercept present (see, e.g., @menard_coefficients_2000; @ugba_modification_2022). 
+Several summary measures of predictive strength of CRMs (pseudo-$R^2$) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@ugba_modification_2022; @mcFadden_conditional_1974]. These measures were obtained for the RET.fit (see Table1). The Ugba & Gertheiss' $R^2$, in particular, reports a moderately good fit, with the proportional reduction in the "-2 loglikelihood statistics" up to 42%. Where the quantity in quotation represents the error variation of the model with only the intercept present (see, e.g., @menard_coefficients_2000; @ugba_modification_2022). 
 
 ```r
 Rsquared(RET.fit, measure = "mcfadden")
@@ -104,6 +104,54 @@ erroR(RET.fit, type = "brier")
 erroR(RET.fit, type = "logloss")
 erroR(RET.fit, type = "misclass")
 ```
+
+
+ POM          |      B    |   SE-B   | Pr(>$|z|$)   |
+:-------------|----------:|---------:|-------------:|
+ (Intercept):1|   12.303  |    1.290 |  0.000  ***  |
+ (Intercept):2|   13.673  |    1.317 |  0.000  ***  |
+ SM1          |   -0.255  |    0.192 |  0.184       |
+ DIAB         |   -0.140  |    0.013 |  0.000  ***  |
+ GH           |   -0.460  |    0.074 |  0.000  ***  |
+ BP           |   -0.072  |    0.014 |  0.000  ***  |
+
+Table: Proportional odds model (POM) of the retinopathy dataset with accompanying hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit.  
+
+
+
+ Hypothesis Tests   |   Chi-sq    |    df       |  pr(>chi)   |
+:-------------------|------------:|------------:|------------:|
+ HL                 | 32.148      |    17       | 0.014 *     |
+ Lipsitz            |  8.764      |     9       | 0.459       |
+ PR                 | 13.094      |     4       | 0.011 *     |
+
+
+ 
+ Brant Test    |    chi-sq   |    df    |  pr(>chi)  |
+:--------------|------------:|---------:|-----------:|
+ Omnibus       |   10.38     |    4     |  0.035 *   |
+ SM1           |    4.99     |    1     |  0.026 *   |
+ DIAB          |    2.21     |    1     |  0.137     |
+ GH            |    1.63     |    1     |  0.202     |
+ BP            |    1.37     |    1     |  0.241     |
+
+
+ 
+  LR-Test |   rdf      |  rdev    |   LRT      |   df      |  pr(>chi)   |
+:---------|-----------:|---------:|-----------:|----------:|------------:|
+   POM    |   1220     |  904.14  |            |           |             |
+   NPOM   |   1216     |  892.45  |   11.69    |   4       |   0.0198 *  |
+
+
+
+ R2 and Error Measures    |   value  |
+:-------------------------|---------:|
+ McFadden's R2            |   0.191  |
+ Ugba & Gertheiss' R2     |   0.421  |
+ Brier Score              |   0.427  |
+ LogLoss                  |   0.737  |
+ Misclassification Error  |   0.318  |
+
 
 # Conclusion & Outlook
 The development of the `gofcat` is geared towards a  stress-free evaluation of some widely used regression models in empirical studies. As shown in this paper, `gofcat` bundles together crucial GOF measures for CRMs, providing some quick means of assessing their strength and performance. Several classes of objects are supported and can be directly thrown into the available functions, yielding the desired test results. The provided example in this article deals with an ordinal outcome model, even though, as earlier hinted, both the binary and the multinomial outcome models can likewise be assessed using the functions in `gofcat`. Tests for the ordinal models, in particular, are currently available for the constrained forms of the proportional odds model, the adjacent-category model and the continuation-ratio model. Future development of `gofcat` will include tests other than those presently covered and tests for the unconstrained ordinal models.
