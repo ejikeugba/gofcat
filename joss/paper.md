@@ -42,12 +42,12 @@ library(serp)
 library(gofcat)
 
 retinopathy.new <- within(retinopathy, {
-  RET <- as.ordered(RET)
-  SM <- as.factor(SM)
+  RET <- ordered(RET)
+  SM <- factor(SM)
 })
 
-RET.fit <- serp(RET ~ SM + DIAB + GH + BP, link = "logit", slope = "parallel",
-           data = retinopathy.new)
+RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
+           link = "logit", data = retinopathy.new)
 summary(RET.fit)
 ```
 
@@ -94,8 +94,6 @@ This, together with the 'LR.test() function' provides the means of testing the p
 
 ```r
 brant.test(RET.fit)
-
-Alternatively with Likelihood ratio test
 LR.test(RET.fit, call = TRUE)
 ```
 
