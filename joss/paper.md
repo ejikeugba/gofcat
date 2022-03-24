@@ -29,7 +29,6 @@ The `gofcat` R software package provides a quick means of evaluating some widely
 # Statement of Need
 Evaluation of model adequacy via GOF tests and related measures remains a very crucial step in every model-making routine. Several forms of GOF tests for regression models already exist in the literature. However, as earlier noted, not only are there few GOF tests particularly suited for the CRMs, due to little or no open-source software implementations, a lot of users find somewhat ambiguous the application of such methods. R packages, such as `goftest` [@julian_goftest_2021], `ADGofTest` [@carlos_adgoftest_2011] and `AICcmodavg` [@marc_aicmodavg_2020], for instance, do provide some GOF tests, but mainly for the continuous outcome models. Other R packages like `ResourceSelection` [@subhash_resourceselection_2019], `performance` [@daniel_performance_2021], `generalhoslem` [@matthew_generalhoslem_2019] and `brant` [@benjamin_brant_2020], do provide some handful of tests applicable to CRMs. However, available tests seem restricted to binary models or some unique class of objects when extended beyond the binary setting. For instance, the Hosmer-Lemeshow Test available in the `ResourceSelection` package supports only binary models, while the Brant Test available in the `brant` R package supports only objects of class polr().
 
-
 In contrast, however, while providing several GOF tests that apply to the binary, multinomial and ordinal response models, `gofcat` also supports several class of objects, including objects from both the s3 and the s4 R methods. Currently supported classes include objects of class serp() from the `serp` R package [@ugba_serp_2021], vglm() from the `VGAM` R package [@thomas_vgam_2010], clm() from the `ordinal` R package [@christensen_ordinal_2019], multinom() from the `nnet` R package [@venables_modern_2002], polr() from the `MASS` R package [@venables_modern_2002], mlogit() from the `mlogit` R package [@yves_estimation_2020] and glm() from the `stats` R package [@R_language_2021]. The last two methods fit only binary models, while the rest fit multinomial/ordinal models. Supported models from these classes can all be directly evaluated using `gofcat`. However, in situations where the actual model to be evaluated is not available, some tests may still be conducted using instead a data frame of observed and fitted values.
 
 
@@ -99,7 +98,7 @@ LR.test(RET.fit, call = TRUE)
 
 
 ### Rsquared()
-Several summary measures of predictive strength of CRMs (pseudo-$R^2$) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@ugba_modification_2022; @mcFadden_conditional_1974]. These measures were obtained for the RET.fit (see Table 2). The Ugba & Gertheiss' $R^2$, in particular, reports a moderately good fit, with the proportional reduction in the "-2 loglikelihood statistics" up to 42%. Where the quantity in quotation represents the error variation of the model with only the intercept present (see, e.g., @menard_coefficients_2000; @ugba_modification_2022). 
+Several summary measures of predictive strength of CRMs (pseudo-$R^2$) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@mcFadden_conditional_1974; @ugba_augmented_2018; @ugba_modification_2022]. These measures were obtained for the RET.fit (see Table 2). The Ugba & Gertheiss' $R^2$, in particular, reports a moderately good fit, with the proportional reduction in the "-2 loglikelihood statistics" up to 42%. Where the quantity in quotation represents the error variation of the model with only the intercept present (see, e.g., @menard_coefficients_2000; @ugba_modification_2022). 
 
 ```r
 Rsquared(RET.fit, measure = "mcfadden")
@@ -125,7 +124,6 @@ Table: Post-estimation tests for the proportional odds model (POM) of the retino
  PR                 | 13.094      |     4       | 0.011 *     |
 
 
- 
  Brant Test    |    chi-sq   |    df    |  pr(>chi)  |
 :--------------|:------------|:---------|:-----------|
  Omnibus       |   10.38     |    4     |  0.035 *   |
@@ -135,18 +133,17 @@ Table: Post-estimation tests for the proportional odds model (POM) of the retino
  BP            |    1.37     |    1     |  0.241     |
 
 
- 
-  LR-Test |    LRT     |   df      |  pr(>chi)   |
+LR-Test   |    LRT     |   df      |  pr(>chi)   |
 :---------|:-----------|:----------|:------------|
-   POM    |            |           |             |
-   NPOM   |   11.69    |   4       |   0.0198 *  |
+POM       |            |           |             |
+NPOM      |   11.69    |   4       |   0.0198 *  |
 
 
 
  R2 and Error Measures    |   value  |
 :-------------------------|:---------|
- McFadden's R2            |   0.191  |
- Ugba & Gertheiss' R2     |   0.421  |
+ McFadden's $R^2$         |   0.191  |
+ Ugba & Gertheiss' $R^2$  |   0.421  |
  Brier Score              |   0.427  |
  LogLoss                  |   0.737  |
  Misclassification Error  |   0.318  |
