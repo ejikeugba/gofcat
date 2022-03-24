@@ -50,7 +50,9 @@ RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
 summary(RET.fit)
 ```
 
- Coefficients |      B    |   SE-B   | Pr(>$|z|$)   |
+Table: Proportional odds model (POM) of the retinopathy dataset. The significance code "***" indicates values < 0.001.  
+
+ Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
 :-------------|:----------|:---------|:-------------|
  (Intercept):1|   12.303  |    1.290 |  0.000  ***  |
  (Intercept):2|   13.673  |    1.317 |  0.000  ***  |
@@ -58,8 +60,6 @@ summary(RET.fit)
  DIAB         |   -0.140  |    0.013 |  0.000  ***  |
  GH           |   -0.460  |    0.074 |  0.000  ***  |
  BP           |   -0.072  |    0.014 |  0.000  ***  |
-
-Table: Proportional odds model (POM) of the retinopathy dataset. The significance code "***" indicates values < 0.001.  
 
 
 ## Post Estimation Tests
@@ -116,7 +116,6 @@ erroR(RET.fit, type = "misclass")
 
 Table: Post-estimation tests for the proportional odds model (POM) of the retinopathy dataset, featuring hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit. The significance code "*" indicates values < 0.05.  
 
-
  Hypothesis Tests   |   Chi-sq    |    df       |  pr(>chi)   |
 :-------------------|:------------|:------------|:------------|
  HL                 | 32.148      |    17       | 0.014 *     |
@@ -140,7 +139,7 @@ NPOM      |   11.69    |   4       |   0.0198 *  |
 
 
 
- R2 and Error Measures    |   value  |
+ $R^2$ and Error Metrics  |   value  |
 :-------------------------|:---------|
  McFadden's $R^2$         |   0.191  |
  Ugba & Gertheiss' $R^2$  |   0.421  |
