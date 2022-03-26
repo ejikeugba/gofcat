@@ -40,13 +40,13 @@ A constrained cumulative logit model (also known as proportional odds model) was
 library(serp)
 library(gofcat)
 
-retinopathy.new <- within(retinopathy, {
+retino <- within(retinopathy, {
   RET <- ordered(RET)
   SM <- factor(SM)
 })
 
 RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
-           link = "logit", data = retinopathy.new)
+           link = "logit", data = retino)
 summary(RET.fit)
 ```
 
