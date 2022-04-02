@@ -116,7 +116,7 @@ library(gofcat)
 
 Pull requests are welcomed! Please submit your contributions to `gofcat`
 through the list of `Pull Requests`, following the [contributing
-guidelines](https://github.com/ejikeugba/gofcat/blob/main/.github/contributing.md).
+guidelines](https://github.com/ejikeugba/gofcat/blob/main/CONTRIBUTING.md).
 To report issues and/or seek support, please file a new ticket in the
 [issue](https://github.com/ejikeugba/gofcat/issues) tracker, and expect
 a feedback ASAP!
