@@ -51,16 +51,34 @@ RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
 summary(RET.fit)
 ```
 
+
+
+<style>
+table th:first-of-type {
+    width: 25%;
+}
+table th:nth-of-type(2) {
+    width: 25%;
+}
+table th:nth-of-type(3) {
+    width: 25%;
+}
+table th:nth-of-type(4) {
+    width: 25%;
+}
+</style>
+
+
 Table: Proportional odds model of the retinopathy dataset. The significance code "***" indicates values < 0.001.  
 
  Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
 :-------------|:----------|:---------|:-------------|
  (Intercept):1|  12.303   |    1.290 |  0.000  ***  |
  (Intercept):2|  13.673   |    1.317 |  0.000  ***  |
- SM1          |$-$0.255   |    0.192 |  0.184       |
- DIAB         |$-$0.140   |    0.013 |  0.000  ***  |
- GH           |$-$0.460   |    0.074 |  0.000  ***  |
- BP           |$-$0.072   |    0.014 |  0.000  ***  |
+ SM1          |  -0.255   |    0.192 |  0.184       |
+ DIAB         |  -0.140   |    0.013 |  0.000  ***  |
+ GH           |  -0.460   |    0.074 |  0.000  ***  |
+ BP           |  -0.072   |    0.014 |  0.000  ***  |
 
 
 ## Post Estimation Tests
@@ -137,6 +155,16 @@ Table: Post-estimation tests for the proportional odds model of the retinopathy 
 :---------|:-----------|:----------|:------------|
 model     |   11.69    |   4       |   0.020 *   |
 
+
+
+<style>
+table th:first-of-type {
+    width: 25%;
+}
+table th:nth-of-type(2) {
+    width: 75%;
+}
+</style>
 
 
  $R-$squared              |   value  |
