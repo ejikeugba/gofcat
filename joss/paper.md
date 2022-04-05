@@ -22,19 +22,20 @@ bibliography: paper.bib
 
 
 # Summary 
-Statistical models are considered simplification or approximation of reality [@burnham_model_2002]. How close to the target such an approximation is or how it compares to competing models is always of immense interest in empirical studies. Answers to such questions are provided employing adequate goodness-of-fit (GOF) procedures. However, while such methods alongside software implementations are readily available for the continuous outcome models, there are few and no unified open-source implementations for categorical response models (CRMs). 
+Statistical models are considered simplification or approximation of reality [@burnham_model_2002]. How close to the target a given model is or how it compares to competing models is always of immense concern in real-world applications. Answers to such questions are largely determined employing adequate goodness-of-fit (GOF) procedures. However, while such methods alongside software implementations are readily available for the continuous outcome models, there are few and no unified open-source implementations for categorical response models (CRMs). 
 The `gofcat` R software package provides a quick means of evaluating some widely used CRMs in empirical studies. Depending on the model of interest, functions are available for the different forms of hypothesis tests associated with CRMs and for computing the summary measures of predictive strength of fits. For instance, the proportional odds assumption in the ordinal regression model can be tested using the brant or the likelihood ratio tests available in `gofcat`. Other crucial tests like the Hosmer-Lemeshow, the Lipsitz and the Pulkstenis-Robinson tests are also available for some widely used binary, multinomial and ordinal response models. Moreover, the assessment of prediction errors through error/loss functions alongside summary measures of predictive strength of fitted models (pseudo-$R^2$s) are also provided in `gofcat`.
 
 
 # Statement of Need
-Evaluation of model adequacy via GOF tests and related measures remains a very crucial step in every model-making routine. Several forms of GOF tests for regression models already exist in the literature. However, as earlier noted, not only are there few GOF tests particularly suited for the CRMs, due to little or no open-source software implementations, a lot of users find somewhat ambiguous the application of such methods. R packages, such as `goftest` [@julian_goftest_2021], `ADGofTest` [@carlos_adgoftest_2011] and `AICcmodavg` [@marc_aicmodavg_2020], for instance, do provide some GOF tests, but mainly for the continuous outcome models. Other R packages like `ResourceSelection` [@subhash_resourceselection_2019], `performance` [@daniel_performance_2021], `generalhoslem` [@matthew_generalhoslem_2019] and `brant` [@benjamin_brant_2020], do provide some handful of tests applicable to CRMs. However, available tests seem restricted to binary models or some unique class of objects when extended beyond the binary setting. For instance, the Hosmer-Lemeshow Test available in the `ResourceSelection` package supports only binary models, while the Brant Test available in the `brant` R package supports only objects of class polr().
+Evaluation of model adequacy via GOF tests and related measures remains a very crucial step in every model-making procedure. Several forms of GOF tests for regression model analyses already exist in the literature and very much in use too in empirical studies. However, as earlier noted, not only are there few GOF tests particularly suited for the CRMs, due to little or no open-source software implementations, a lot of users find somewhat ambiguous the application of such methods. R packages, such as `goftest` [@julian_goftest_2021], `ADGofTest` [@carlos_adgoftest_2011] and `AICcmodavg` [@marc_aicmodavg_2020], for instance, do provide some GOF tests, but mainly for the continuous outcome models. Other R packages like `ResourceSelection` [@subhash_resourceselection_2019], `performance` [@daniel_performance_2021], `generalhoslem` [@matthew_generalhoslem_2019] and `brant` [@benjamin_brant_2020], do provide some handful of tests applicable to CRMs. However, available tests in those packages seem restricted to binary models or some unique class of objects when extended beyond the binary settings. For instance, the Hosmer-Lemeshow Test available in the `ResourceSelection` package supports only binary models, while the Brant Test available in the `brant` R package supports only objects of class polr().
 
 In contrast, however, while providing several GOF tests that apply to the binary, multinomial and ordinal response models, `gofcat` also supports several class of objects, including objects from both the s3 and the s4 R methods. Currently supported classes include objects of class serp() from the `serp` R package [@ugba_serp_2021], vglm() from the `VGAM` R package [@thomas_vgam_2010], clm() from the `ordinal` R package [@christensen_ordinal_2019], multinom() from the `nnet` R package [@venables_modern_2002], polr() from the `MASS` R package [@venables_modern_2002], mlogit() from the `mlogit` R package [@yves_estimation_2020] and glm() from the `stats` R package [@R_language_2021]. The last two methods fit only binary models, while the rest fit multinomial/ordinal models. Supported models from these classes can all be directly evaluated using `gofcat`. However, in situations where the actual model to be evaluated is not available, some tests may still be conducted using instead a data frame of observed and fitted values.
 
 
 # Features and Application
 An overview of the main functions of `gofcat` is given alongside an application to a real-life data example. The data comes from a 6-year longitudinal study on diabetes and retinopathy, with records drawn from  613 diabetic patients [see, @jorgens_effective_1993; @muhlhauser_cigarette_1996; @bender_regression_1998]. The study aimed to investigate the relationship between retinopathy status and the available risk factors. The outcome variable, retinopathy status (RET), is an ordered factor with three categories: 1 = no retinopathy, 2 = non-proliferative retinopathy, and 3 = advanced retinopathy or blind. The risk factors of interest include smoking (SM), a binary variable with 1 if the patient was a smoker and 0 otherwise, diabetes duration (DIAB) measured in years, glycosylated haemoglobin (GH) measured in percentage, and diastolic blood pressure (BP) measured in mmHg. 
-A constrained cumulative logit model (also known as proportional odds model) was fit to the data (using `serp` R package @ugba_serp_2021). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking isn't significant (p = 0.184), while the association between RET and the other risk factors are highly significant (p < 0.0001). 
+
+A constrained cumulative logit model (also known as proportional odds model) was fit to the data (using `serp` R package @ugba_serp_2021). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking isn't significant (p = 0.184), while the association between rretinopathy and the other risk factors are highly significant (p < 0.0001). 
 
 ```r
 library(serp)
@@ -45,21 +46,21 @@ retino <- within(retinopathy, {
   SM <- factor(SM)
 })
 
-RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
-           link = "logit", data = retino)
+RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel", 
+           link = "logit", reverse = TRUE, data = retino)
 summary(RET.fit)
 ```
 
-Table: Proportional odds model (POM) of the retinopathy dataset. The significance code "***" indicates values < 0.001.  
+Table: Proportional odds model of the retinopathy dataset. The significance code "***" indicates values < 0.001.  
 
  Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
 :-------------|:----------|:---------|:-------------|
- (Intercept):1|   12.303  |    1.290 |  0.000  ***  |
- (Intercept):2|   13.673  |    1.317 |  0.000  ***  |
- SM1          |   -0.255  |    0.192 |  0.184       |
- DIAB         |   -0.140  |    0.013 |  0.000  ***  |
- GH           |   -0.460  |    0.074 |  0.000  ***  |
- BP           |   -0.072  |    0.014 |  0.000  ***  |
+ (Intercept):1|  -12.303  |    1.290 |  0.000  ***  |
+ (Intercept):2|  -13.673  |    1.317 |  0.000  ***  |
+ SM1          |    0.255  |    0.192 |  0.184       |
+ DIAB         |    0.140  |    0.013 |  0.000  ***  |
+ GH           |    0.460  |    0.074 |  0.000  ***  |
+ BP           |    0.072  |    0.014 |  0.000  ***  |
 
 
 ## Post Estimation Tests
@@ -73,14 +74,14 @@ hosmerlem(RET.fit, tables = TRUE)
 ```
 
 ### lipsitz()
-This function computes the Lipsitz test for the ordinal models [@lipsitz_goodness_1996]. For this test, one also splits the observations into $k$ separate groups using the ordinal scores of the estimated values. An indicator variable denotes the observations belonging to each group, producing additional pseudo-variables with which the original model could be updated. Supposing the original model fits correctly, then the coefficients of the pseudo-variables all equal zero. The likelihood ratio statistic obtained from the log-likelihoods of the original and the refitted models is subsequently compared with the chi-square distribution having $k - 1$ degrees of freedom. In contrast to the LH test (Table 2), the Lipsitz test for the RET.fit is not statistically significant $(p = 0.4593)$, implying that no lack of fit was detected. More explanation on this follows shortly.
+This function computes the Lipsitz test for the ordinal models [@lipsitz_goodness_1996]. For this test, one also splits the observations into $k$ separate groups using the ordinal scores of the estimated values. An indicator variable denotes the observations belonging to each group, producing additional pseudo-variables with which the original model could be updated. Supposing the original model fits correctly, then the coefficients of the pseudo-variables all equal zero. The likelihood ratio statistic obtained from the log-likelihoods of the original and the refitted models is subsequently compared with the chi-square distribution having $k - 1$ degrees of freedom. In contrast to the LH test (Table 2), the Lipsitz test for the RET.fit is not statistically significant $(p = 0.459)$, implying that no lack of fit was detected. More explanation on this follows shortly.
 
 ```r
 lipsitz(RET.fit)
 ```
 
 ### pulkroben()
-This function performs the Pulkstenis-Robinson (PR) test for ordinal models (Pulkstenis and Robinson 2004). It particularly forms groups of observations using covariate patterns obtained from the categorical covariates. Each covariate pattern is subsequently split in two based on the median ordinal scores. The test statistic (chi-sq or deviance) is obtained using the tabulated observed and estimated frequencies. Let’s assume that c is the number of covariate patterns, r the number of response categories and k the number of categorical variables in the model, the test statistic approximates the chi-sq distribution with (2c - 1)(r - 1) - k - 1 degrees of freedom. Considering the RET.fit once again (Table 2), the conducted PR test turns out significant (p = 0.01082), supporting the initial idea of lack of fit. 
+This function performs the Pulkstenis-Robinson (PR) test for ordinal models (Pulkstenis and Robinson 2004). It particularly forms groups of observations using covariate patterns obtained from the categorical covariates. Each covariate pattern is subsequently split in two based on the median ordinal scores. The test statistic (chi-sq or deviance) is obtained using the tabulated observed and estimated frequencies. Let’s assume that c is the number of covariate patterns, r the number of response categories and k the number of categorical variables in the model, the test statistic approximates the chi-sq distribution with (2c - 1)(r - 1) - k - 1 degrees of freedom. Considering the RET.fit once again (Table 2), the conducted PR test turns out significant (p = 0.011), supporting the initial idea of lack of fit. 
 
 ```r
 pulkroben(RET.fit, test = "chisq", tables = TRUE)
@@ -89,7 +90,7 @@ So far, two out of the three GOF tests (HL and PR) for the RET.fit suggest a pos
 
 
 ### brant.test()
-This, together with the 'LR.test() function' provides the means of testing the parallel regression assumption in the ordinal regression models. The former follows the procedures outlined in @brant_assessing_1990, also see the explanations in the Section 2 of @ugba_smoothing_2021. Looking at Table 1,  the brant test of the RET.fit (Omnibus) is significant (p = 0.035), indicating that the proportional odds assumption is violated. This is also confirmed by the likelihood ratio test (p = 0.0198). However, a closer look at the individual variables in the brant test(Table 2) shows that the non proportionality is primarily driven by the only categorical variable (smoking) in the model, which, as earlier observed, wasn't a significant predictor in the model.
+This, together with the 'LR.test() function' provides the means of testing the parallel regression assumption in the ordinal regression models. The former follows the procedures outlined in @brant_assessing_1990, also see the explanations in the Section 2 of @ugba_smoothing_2021. Looking at Table 1,  the brant test of the RET.fit (Omnibus) is significant (p = 0.035), indicating that the proportional odds assumption is violated. This is also confirmed by the likelihood ratio test (p = 0.020). However, a closer look at the individual variables in the brant test(Table 2) shows that the non proportionality is primarily driven by the only categorical variable (smoking) in the model, which, as earlier observed, wasn't a significant predictor in the model.
 
 ```r
 brant.test(RET.fit)
@@ -114,7 +115,7 @@ erroR(RET.fit, type = "logloss")
 erroR(RET.fit, type = "misclass")
 ```
 
-Table: Post-estimation tests for the proportional odds model (POM) of the retinopathy dataset, featuring hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit. The significance code "*" indicates values < 0.05.  
+Table: Post-estimation tests for the proportional odds model of the retinopathy dataset, featuring hypothesis tests for lack of fit, tests for proportional odds assumption and summary/error metrics of fit. The significance code "*" indicates values < 0.05.  
 
  Hypothesis Tests   |   Chi-sq    |    df       |  pr(>chi)   |
 :-------------------|:------------|:------------|:------------|
@@ -132,20 +133,25 @@ Table: Post-estimation tests for the proportional odds model (POM) of the retino
  BP            |    1.37     |    1     |  0.241     |
 
 
-LR-Test   |    LRT     |   df      |  pr(>chi)   |
+ LR-Test  |    LRT     |   df      |  pr(>chi)   |
 :---------|:-----------|:----------|:------------|
-POM       |            |           |             |
-NPOM      |   11.69    |   4       |   0.0198 *  |
+model     |   11.69    |   4       |   0.020 *   |
 
 
 
- $R^2$ and Error Metrics  |   value  |
+ $R-$squared              |   value  |
 :-------------------------|:---------|
  McFadden's $R^2$         |   0.191  |
  Ugba & Gertheiss' $R^2$  |   0.421  |
+
+
+
+ Error Metrics            |   value  |
+:-------------------------|:---------|
  Brier Score              |   0.427  |
  LogLoss                  |   0.737  |
  Misclassification Error  |   0.318  |
+
 
 
 # Conclusion & Outlook
