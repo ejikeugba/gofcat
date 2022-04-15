@@ -35,19 +35,19 @@ In contrast, however, while providing several GOF tests that apply to the binary
 # Features and Application
 An overview of the main functions of `gofcat` is given alongside an application to a real-life data example. The data comes from a 6-year longitudinal study on diabetes and retinopathy, with records drawn from  613 diabetic patients [see, @jorgens_effective_1993; @muhlhauser_cigarette_1996; @bender_regression_1998]. The study aimed to investigate the relationship between retinopathy status and the available risk factors. The outcome variable, retinopathy status (RET), is an ordered factor with three categories: 1 = no retinopathy, 2 = non-proliferative retinopathy, and 3 = advanced retinopathy or blind. The risk factors of interest include smoking (SM), a binary variable with 1 if the patient was a smoker and 0 otherwise, diabetes duration (DIAB) measured in years, glycosylated haemoglobin (GH) measured in percentage, and diastolic blood pressure (BP) measured in mmHg. 
 
-A constrained cumulative logit model (also known as proportional odds model) was fit to the data (using `polr` R package @venables_modern_2002). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.184), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
+A constrained cumulative logit model (also known as proportional odds model) was fit to the data (using `serp` R package @ugba_serp_2021). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.184), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
 
 ```r
-library(serp)
 library(gofcat)
+library(serp)
 
 retino <- within(retinopathy, {
   RET <- ordered(RET)
   SM <- factor(SM)
 })
 
-RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel", 
-           link = "logit", data = retino)
+RET.fit <- serp(RET ~ SM + DIAB + GH + BP, slope = "parallel",
+                link = "logit", data = retino)
 summary(RET.fit)
 ```
 
@@ -67,7 +67,7 @@ Table: Proportional odds model of the retinopathy dataset. The common significan
 Applicable GOF tests for the fitted model (RET.fit) together with other yardsticks of model evaluation were further obtained using the available `gofcat` functions. A brief overview of what each function does is given, followed by an application to the model under consideration.
 
 ### hosmerlem() 
-This function performs the Hosmer-Lemeshow (HL) test for CRMs. Details of the test for the binary outcome model are given in @hosmer_goodness_1980. An extension to multinomial models is found in @fagerland_multinomial_2008 and @fagerland_generalized_2012, while the extension to ordinal models is found in @fagerland_goodness_2013; @fagerland_test_2016; @fagerland_how_2017. In each of the three settings, one splits the original observations into k groups (10 by default), after ranking by ordinal scores (OS). A Pearson Chi-square Statistic is then obtained from the expected and observed frequency tables. For a good chi-square approximation, it is recommended to have at least 80% of the estimated frequencies $>1$ [@fagerland_how_2017]. About 97% of the estimated frequencies from RET.fit meet this criterion. However, as observed in Table 2, the HL test is significant (p = 0.014), indicating a possible lack of fit.  
+This function performs the Hosmer-Lemeshow (HL) test for CRMs. Details of the test for the binary outcome model are given in @hosmer_goodness_1980. An extension to multinomial models is found in @fagerland_multinomial_2008 and @fagerland_generalized_2012, while the extension to ordinal models is found in [-@fagerland_goodness_2013; -@fagerland_test_2016; -@fagerland_how_2017]. In each of the three settings, one splits the original observations into k groups (10 by default), after ranking by ordinal scores (OS). A Pearson Chi-square Statistic is then obtained from the expected and observed frequency tables. For a good chi-square approximation, it is recommended to have at least 80% of the estimated frequencies $>1$ [@fagerland_how_2017]. About 97% of the estimated frequencies from RET.fit meet this criterion. However, as observed in Table 2, the HL test is significant (p = 0.014), indicating a possible lack of fit.  
 
 ```r
 hosmerlem(RET.fit, tables = TRUE)
@@ -141,7 +141,7 @@ model     |   11.69    |   4       |   0.020 *   |
  $R-$squared              |   value  |
 :-------------------------|:---------|
  McFadden's $R^2$         |   0.191  |
- Ugba & Gertheiss' $R^2$  |   0.421  |
+ Ugba & Gertheiss' $R^2$  |   0.405  |
 
 
 
