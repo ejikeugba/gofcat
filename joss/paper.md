@@ -16,7 +16,7 @@ authors:
 affiliations:
  - name: Department of Mathematics and Statistics, School of Economics and Social Sciences, Helmut Schmidt University, Hamburg, Germany
    index: 1
-date: 23 March 2022
+date: 20 April 2022
 bibliography: paper.bib
 ---
 
@@ -46,16 +46,16 @@ retino <- within(retinopathy, {
   SM <- factor(SM)
 })
 
-RET.fit <- polr(RET ~ SM + DIAB + GH + BP, method = "logistic", data = retino)
-coefTb <- coef(summary(RET.fit))
-pvalue <- pnorm(abs(coefTb[, "t value"]), lower.tail = FALSE) * 2
-
+RET.fit <- polr(RET ~ SM + DIAB + GH + BP, method = "logistic", 
+                data = retino)
+coefTab <- coef(summary(RET.fit))
+pv <- pnorm(abs(coefTab[, "t value"]), lower.tail = FALSE) * 2
 ```
 
 Table: Proportional odds model of the retinopathy dataset. The common significance code "***" indicates values < 0.001.  
 
  Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
-:-------------|:----------|:---------|:-------------|
+:-------------|----------:|:---------|:-------------|
  (Intercept):1|  12.303   |    1.294 |  0.000  ***  |
  (Intercept):2|  13.673   |    1.321 |  0.000  ***  |
  SM1          |   0.255   |    0.193 |  0.187       |
