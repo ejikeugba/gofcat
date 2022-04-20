@@ -35,7 +35,7 @@ In contrast, however, while providing several GOF tests that apply to the binary
 # Features and Application
 An overview of the main functions of `gofcat` is given alongside an application to a real-life data example. The data comes from a 6-year longitudinal study on diabetes and retinopathy, with records drawn from  613 diabetic patients [@jorgens_effective_1993; @muhlhauser_cigarette_1996; @bender_regression_1998]. The study aimed to investigate the relationship between retinopathy status and the available risk factors. The outcome variable, retinopathy status (RET), is an ordered factor with three categories: 1 = no retinopathy, 2 = non-proliferative retinopathy, and 3 = advanced retinopathy or blind. The risk factors of interest include smoking (SM), a binary variable with 1 if the patient was a smoker and 0 otherwise, diabetes duration (DIAB) measured in years, glycosylated haemoglobin (GH) measured in percentage, and diastolic blood pressure (BP) measured in mmHg. 
 
-A constrained cumulative logit model (also known as proportional odds model) was fit to the data using polr() from the R MASS package [@venables_modern_2002]). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.184), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
+A constrained cumulative logit model (also known as proportional odds model) was fit to the data using polr() from the R MASS package [@venables_modern_2002]). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.187), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
 
 ```r
 library(gofcat)
@@ -98,7 +98,7 @@ brant.test(RET.fit)
 ```
 
 ### Rsquared()
-Several summary measures of predictive strength of CRMs (pseudo-$R^2$) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of the McFadden's R2 for binary and ordinal outcome models can be obtained alongside other measures of fit [@mcFadden_conditional_1974; @ugba_augmented_2018; @ugba_modification_2022]. These measures were obtained for the RET.fit (see Table 2). The McFadden's and the Ugba & Gertheiss' $R^2$s are respectively 0.191 and 0.405. See, @ugba_modification_2022 for further details on the reported measures.  
+Several summary measures of predictive strength of CRMs (pseudo-$R^2$) are obtained with this function. These include both likelihood and non-likelihood-based pseudo-R2 measures. For instance, the recently proposed modification of the McFadden's R2 for binary and ordinal outcome models can be obtained via this function [@mcFadden_conditional_1974; @ugba_augmented_2018; @ugba_modification_2022]. As reported in Table 2, the McFadden's and the Ugba & Gertheiss' $R^2$s for the RET.fit are respectively 0.191 and 0.405. See, @ugba_modification_2022 for further details on the reported measures.  
 
 ```r
 Rsquared(RET.fit, measure = "mcfadden")
@@ -143,17 +143,13 @@ Table: Post-estimation tests for the proportional odds model of the retinopathy 
  Misclassification Error  |   0.318  |
 
 
-
 # Conclusion & Outlook
 The development of the `gofcat` software package is geared towards a stress-free evaluation of some widely used regression models in empirical studies. As shown in this paper, `gofcat` bundles together crucial GOF tests for CRMs, also providing some quick means of assessing their strength and performance. Several classes of objects are supported and can be directly handled by the available functions, yielding the desired test results. The provided example in this article deals with an ordinal outcome model, even though, as earlier hinted, both the binary and the multinomial outcome models can likewise be assessed using the functions in `gofcat`. Tests for the ordinal models, in particular, are currently available for the constrained forms of the proportional odds model, the adjacent-category model and the continuation-ratio model. Future development of `gofcat` will include tests other than those presently covered and tests for the unconstrained ordinal models.
 
-
 # Availability
-The released version of `gofcat` can be obtained from the Comprehensive R Archive Network ([CRAN](https://CRAN.R-project.org/package=gofcat)) [@R_language_2021], with details on usage available in the package [documentation](https://cran.r-project.org/web/packages/gofcat/gofcat.pdf), while on the other hand, the development version is available in [GitHub](https://github.com/ejikeugba/gofcat) also with more details provided on a pkgdown [@wickham_pkgdown_2020] website on [Github Pages](https://ejikeugba.github.io/gofcat). 
-
+The released version of `gofcat` is available in the Comprehensive R Archive Network ([CRAN](https://CRAN.R-project.org/package=gofcat)) [@R_language_2021], with more details found in the package documentation. Alternatively, the development version is available from [GitHub](https://github.com/ejikeugba/gofcat) with further details about usage provided on a pkgdown website (Wickham & Hesselberth, 2020) on [Github Pages](https://ejikeugba.github.io/gofcat). 
 
 # Acknowledgements
 The author would like to thank Jan Gertheiss for his helpful suggestions. This project was partly supported by Deutsche Forschungsgemeinschaft (DFG) under Grant GE2353/2-1.
-
 
 # References
