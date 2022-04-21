@@ -19,6 +19,7 @@ status](https://www.r-pkg.org/badges/version/gofcat)](https://CRAN.R-project.org
 status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?branch=main&svg=true)](https://ci.appveyor.com/project/ejikeugba/gofcat)
 [![R build
 status](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions)
+[![status](https://joss.theoj.org/papers/8079988579172de184353774929f28c1/status.svg)](https://joss.theoj.org/papers/8079988579172de184353774929f28c1)
 <!-- badges: end -->
 
 ### Overview
