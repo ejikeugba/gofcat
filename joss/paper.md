@@ -82,7 +82,7 @@ lipsitz(RET.fit)
 ```
 
 ### pulkroben()
-This function performs the Pulkstenis-Robinson (PR) test for ordinal models (Pulkstenis and Robinson 2004). It particularly forms groups of observations using covariate patterns obtained from the categorical covariates. Each covariate pattern is subsequently split in two based on the median ordinal scores. The test statistic (chi-sq or deviance) is obtained using the tabulated observed and estimated frequencies. Let’s assume that c is the number of covariate patterns, r the number of response categories and k the number of categorical variables in the model, the test statistic approximates the chi-sq distribution with (2c - 1)(r - 1) - k - 1 degrees of freedom. Considering the RET.fit once again (Table 2), the conducted PR test turns out significant (p = 0.011), supporting the initial idea of lack of fit. 
+This function performs the Pulkstenis-Robinson (PR) test for ordinal models [@pulkstenis_goodness_2004]. It particularly forms groups of observations using covariate patterns obtained from the categorical covariates. Each covariate pattern is subsequently split in two based on the median ordinal scores. The test statistic (chi-sq or deviance) is obtained using the tabulated observed and estimated frequencies. Let’s assume that c is the number of covariate patterns, r the number of response categories and k the number of categorical variables in the model, the test statistic approximates the chi-sq distribution with (2c - 1)(r - 1) - k - 1 degrees of freedom. Considering the RET.fit once again (Table 2), the conducted PR test turns out significant (p = 0.011), supporting the initial idea of lack of fit. 
 
 ```r
 pulkroben(RET.fit, test = "chisq", tables = TRUE)
