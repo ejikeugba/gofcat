@@ -150,8 +150,6 @@ The development of the `gofcat` software package is geared towards a stress-free
 The released version of gofcat is available in the Comprehensive R Archive Network ([CRAN](https://CRAN.R-project.org/package=gofcat)) [@R_language_2021], with details about usage provided in the package [documentation](https://cran.r-project.org/web/packages/gofcat/gofcat.pdf). Alternatively, the development version is available from [GitHub](https://github.com/ejikeugba/gofcat) with further details found on a pkgdown website on [Github Pages](https://ejikeugba.github.io/gofcat) [@wickham_pkgdown_2020]. 
 
 
-
-
 # Acknowledgements
 The author would like to thank Jan Gertheiss for his helpful suggestions. This project was partly supported by Deutsche Forschungsgemeinschaft (DFG) under Grant GE2353/2-1.
 
