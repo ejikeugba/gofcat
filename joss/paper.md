@@ -35,21 +35,20 @@ In contrast, however, while providing several GOF tests that apply to the binary
 # Features and Application
 An overview of the main functions of `gofcat` is given alongside an application to a real-life data example. The data comes from a 6-year longitudinal study on diabetes and retinopathy, with records drawn from  613 diabetic patients [@jorgens_effective_1993; @muhlhauser_cigarette_1996; @bender_regression_1998]. The study aimed to investigate the relationship between retinopathy status and the available risk factors. The outcome variable, retinopathy status (RET), is an ordered factor with three categories: 1 = no retinopathy, 2 = non-proliferative retinopathy, and 3 = advanced retinopathy or blind. The risk factors of interest include smoking (SM), a binary variable with 1 if the patient was a smoker and 0 otherwise, diabetes duration (DIAB) measured in years, glycosylated haemoglobin (GH) measured in percentage, and diastolic blood pressure (BP) measured in mmHg. 
 
-A constrained cumulative logit model (also known as proportional odds model) was fit to the data using polr() from the R MASS package [@venables_modern_2002]). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.187), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
+A constrained cumulative logit model (also known as proportional odds model) was fit to the data using clm() from the R `ordinal` package [@christensen_ordinal_2019]). The fit is demonstrated in the code chunk below (for brevity, direct code outputs are  omitted), with the realized estimates and tests shown in Table 1. It is observed that the effect of smoking is not significant (p = 0.187), while the association between retinopathy and the other risk factors are highly significant (p < 0.0001). 
 
 ```r
 library(gofcat)
-library(MASS)
+library(ordinal)
 
 retino <- within(retinopathy, {
   RET <- ordered(RET)
   SM <- factor(SM)
 })
 
-RET.fit <- polr(RET ~ SM + DIAB + GH + BP, method = "logistic", 
-                data = retino)
-coefTab <- coef(summary(RET.fit))
-pv <- pnorm(abs(coefTab[, "t value"]), lower.tail = FALSE) * 2
+RET.fit <- clm(RET ~ SM + DIAB + GH + BP, link = "logit", 
+               data = retino)
+summary(RET.fit)
 ```
 
 Table: Proportional odds model of the retinopathy dataset. The common significance code "***" indicates values < 0.001.  
@@ -57,7 +56,7 @@ Table: Proportional odds model of the retinopathy dataset. The common significan
  Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
 :-------------|----------:|:---------|:-------------|
  (Intercept):1|  12.303   |    1.294 |  0.000  ***  |
- (Intercept):2|  13.673   |    1.321 |  0.000  ***  |
+ (Intercept):2|  13.673   |    1.320 |  0.000  ***  |
  SM1          |   0.255   |    0.193 |  0.187       |
  DIAB         |   0.140   |    0.014 |  0.000  ***  |
  GH           |   0.460   |    0.076 |  0.000  ***  |
