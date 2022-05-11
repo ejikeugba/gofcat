@@ -120,10 +120,10 @@ contr.fn <- function(model, group, customFreq, measure,
            "of columns of predicted values", call. = FALSE)
     if (is.ordered(y)) ord <- TRUE
   }else{
-    if (!is.null(dim(ypred)))
+    ypred <- data.frame(ypred)
+    if (ncol(ypred) > 1L)
       stop("more than one column of fitted values for a binary model ",
            "is not allowed", call. = FALSE)
-    ypred <- data.frame(ypred)
   }
   orig.cn <- colnames(ypred)
   dframe <- cbind(y, ypred)
@@ -183,6 +183,9 @@ contr.fn <- function(model, group, customFreq, measure,
                "Factor and ordinal variables, including binary outcomes, should be ",
                "declared in dataset or model.")
   fail <- c("unsuccessful! the original model could not be updated.")
+  badvariable <- c("'pseudo_variable_' is a reserved variable name! ",
+                   "consider renaming the variable in the dataset and in the model")
   list(y=y, ypred=ypred, freq=freq, ord=ord, catg=classx, obs=n, group=group,
-       mt=modeltype, nL=nL, thresh=thresh, catpred=catpred, fail=fail, model=fit)
+       mt=modeltype, nL=nL, thresh=thresh, catpred=catpred, fail=fail, model=fit,
+       badvariable=badvariable)
 }
