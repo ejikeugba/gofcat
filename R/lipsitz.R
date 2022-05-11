@@ -98,17 +98,13 @@ lipsitz <- function(model, group = 10, customFreq = NULL)
   dt <- data.frame(dt, group=factor(ct))
   dt <- dt[order(dt$id), ]
   origMod <- model
-  if (cntr$mt=="vglm") {
-    origMod@model$grp <- dt$group
-    origMod@model <- ncleaner(origMod@model)
-    newMod <- suppressWarnings(try(update(origMod, . ~ . + grp, data = origMod@model),
-                  silent = TRUE))
-  } else {
-    origMod$model$grp <- dt$group
-    origMod$model <- ncleaner(origMod$model)
-    newMod <- suppressWarnings(try(update(origMod, . ~ . + grp, data = origMod$model),
-                  silent = TRUE))
-  }
+  datafrm <- if (cntr$mt=="vglm") origMod@model else origMod$model
+
+  if("pseudo_variable_" %in%  colnames(datafrm)) stop(cntr$badvariable)
+  datafrm$pseudo_variable_ <- dt$group
+  datafrm <- ncleaner(datafrm)
+  newMod <- suppressWarnings(try(update(origMod, . ~ . + pseudo_variable_,
+                                        data = datafrm), silent = TRUE))
   if (inherits(newMod, "try-error")) stop(cntr$fail)
   if (cntr$mt == "serp" || cntr$mt == "polr")
     LR <- origMod$deviance - newMod$deviance
