@@ -55,8 +55,8 @@ Table: Proportional odds model of the retinopathy dataset. The common significan
 
  Coefficients |      B    |   SE-B   |  Pr(>$|z|$)  |
 :-------------|----------:|:---------|:-------------|
- (Intercept)1 |  12.303   |    1.294 |  0.000  ***  |
- (Intercept)2 |  13.673   |    1.320 |  0.000  ***  |
+ (Intercept):1|  12.303   |    1.294 |  0.000  ***  |
+ (Intercept):2|  13.673   |    1.320 |  0.000  ***  |
  SM1          |   0.255   |    0.193 |  0.187       |
  DIAB         |   0.140   |    0.014 |  0.000  ***  |
  GH           |   0.460   |    0.076 |  0.000  ***  |
