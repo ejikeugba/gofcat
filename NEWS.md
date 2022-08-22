@@ -1,3 +1,7 @@
+# gofcat 0.1.3
+- release for JOSS
+- minor changes in gofcat documentation and functions
+
 ---
 # gofcat 0.1.2
 - Submission to CRAN.

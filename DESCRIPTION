@@ -1,7 +1,7 @@
 Type: Package
 Package: gofcat
 Title: Goodness-of-Fit Measures for Categorical Response Models
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     person(given = "Ejike R.",
            family = "Ugba",
@@ -21,7 +21,9 @@ Description: A post-estimation method for categorical response models (CRM).
     score, misclassification rate and logloss are also available for the 
     binary, multinomial and ordinal models. Ugba, E. R. and Gertheiss, J. (2018) 
     <http://www.statmod.org/workshops_archive_proceedings_2018.html>.
-License: GPL-2
+License: GPL-2 | file LICENSE
+URL: https://github.com/ejikeugba/gofcat
+BugReports: https://github.com/ejikeugba/gofcat/issues
 Depends:
     R (>= 3.2.0)
 Imports:
