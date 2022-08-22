@@ -49,32 +49,48 @@ in the ordinal regression  models. Also available is the brant.test().</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">LR.test</span><span class="op">(</span><span class="va">model</span>, call<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">LR.test</span><span class="op">(</span><span class="va">model</span>, call<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>a single model object to be tested.</p></dd>
+
+
 <dt>call</dt>
 <dd><p>a logical vector to indicate if the model call should be printed.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <dl><dt>model</dt>
 <dd><p>the call of the model tested</p></dd>
+
+
 <dt>df</dt>
 <dd><p>the degrees of freedom</p></dd>
+
+
 <dt>rdf</dt>
 <dd><p>residual degrees of freedom</p></dd>
+
+
 <dt>rdev</dt>
 <dd><p>residual deviance</p></dd>
+
+
 <dt>LRT</dt>
 <dd><p>likelihood ratio test statistic</p></dd>
+
+
 <dt>prob</dt>
 <dd><p>the p-values of test</p></dd>
+
+
 <dt>call</dt>
 <dd><p>a logical vector</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -90,13 +106,13 @@ serp() and vglm().</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Loading required package: serp</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="va">RET</span><span class="op">)</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>, link<span class="op">=</span><span class="st">"logit"</span>,</span>
-<span class="r-in">           slope<span class="op">=</span><span class="st">"parallel"</span>, reverse<span class="op">=</span><span class="cn">TRUE</span>, data <span class="op">=</span> <span class="va">retinopathy</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">LR.test</span><span class="op">(</span><span class="va">sp</span>, call <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="va">RET</span><span class="op">)</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>, link<span class="op">=</span><span class="st">"logit"</span>,</span></span>
+<span class="r-in"><span>           slope<span class="op">=</span><span class="st">"parallel"</span>, reverse<span class="op">=</span><span class="cn">TRUE</span>, data <span class="op">=</span> <span class="va">retinopathy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">LR.test</span><span class="op">(</span><span class="va">sp</span>, call <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">Model:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> serp(formula = ordered(RET) ~ DIAB + GH + BP, link = "logit", </span>
@@ -110,7 +126,7 @@ serp() and vglm().</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H0: Proportional odds assumption holds</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -125,7 +141,7 @@ serp() and vglm().</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

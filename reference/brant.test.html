@@ -51,43 +51,69 @@ LR.test().</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">brant.test</span><span class="op">(</span><span class="va">model</span>, global<span class="op">=</span> <span class="cn">FALSE</span>, call <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">brant.test</span><span class="op">(</span><span class="va">model</span>, global<span class="op">=</span> <span class="cn">FALSE</span>, call <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>a single model object to be tested.</p></dd>
+
+
 <dt>global</dt>
 <dd><p>default to FALSE. When TRUE, a global test is made for the factor
 variables instead of the individual factor levels.</p></dd>
+
+
 <dt>call</dt>
 <dd><p>when TRUE the model call is printed alongside test results.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <dl><dt>model</dt>
 <dd><p>call of the model tested</p></dd>
+
+
 <dt>df</dt>
 <dd><p>the degrees of freedom</p></dd>
+
+
 <dt>global</dt>
 <dd><p>logical vector of TRUE or FALSE</p></dd>
+
+
 <dt>modeltype</dt>
 <dd><p>character vector of the class of model tested</p></dd>
+
+
 <dt>Terms</dt>
 <dd><p>original model terms</p></dd>
+
+
 <dt>vnames</dt>
 <dd><p>character vector of variable names used in the model</p></dd>
+
+
 <dt>chisq</dt>
 <dd><p>realized values of the chi-square statistic</p></dd>
+
+
 <dt>rdf</dt>
 <dd><p>residual degrees of freedom</p></dd>
+
+
 <dt>rDev</dt>
 <dd><p>residual deviance</p></dd>
+
+
 <dt>prob</dt>
 <dd><p>the p-values of test</p></dd>
+
+
 <dt>call</dt>
 <dd><p>a logical vector</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -112,19 +138,19 @@ vglm() must be either "cumulative" or "propodds", with the parallel argument TRU
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
-<span class="r-in"><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">2</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">2</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co">## proportional odds model</span></span>
-<span class="r-in"><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">*</span> <span class="va">x2</span>, link <span class="op">=</span> <span class="st">"logit"</span>, slope <span class="op">=</span> <span class="st">"parallel"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">brant.test</span><span class="op">(</span><span class="va">sp</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span></span>
+<span class="r-in"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">2</span>, <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Binomial.html" class="external-link">rbinom</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">2</span>, <span class="fl">0.7</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co">## proportional odds model</span></span></span>
+<span class="r-in"><span><span class="va">sp</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">x1</span> <span class="op">*</span> <span class="va">x2</span>, link <span class="op">=</span> <span class="st">"logit"</span>, slope <span class="op">=</span> <span class="st">"parallel"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">brant.test</span><span class="op">(</span><span class="va">sp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">Brant Test:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            chi-sq   df   pr(&gt;chi)</span>
@@ -137,7 +163,7 @@ vglm() must be either "cumulative" or "propodds", with the parallel argument TRU
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H0: Proportional odds assumption holds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"><span class="fu">brant.test</span><span class="op">(</span><span class="va">sp</span>, global <span class="op">=</span> <span class="cn">TRUE</span>, call<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">brant.test</span><span class="op">(</span><span class="va">sp</span>, global <span class="op">=</span> <span class="cn">TRUE</span>, call<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">Model:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> serp(formula = y ~ x1 * x2, link = "logit", slope = "parallel", </span>
@@ -152,7 +178,7 @@ vglm() must be either "cumulative" or "propodds", with the parallel argument TRU
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> H0: Proportional odds assumption holds</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -167,7 +193,7 @@ vglm() must be either "cumulative" or "propodds", with the parallel argument TRU
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

@@ -49,30 +49,42 @@ of several categorical outcome models.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">Rsquared</span><span class="op">(</span><span class="va">model</span>, <span class="va">measure</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">Rsquared</span><span class="op">(</span><span class="va">model</span>, <span class="va">measure</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>model</dt>
 <dd><p>single model object for which R2 is determined.</p></dd>
+
+
 <dt>measure</dt>
 <dd><p>selects any of the different measures available.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     <dl><dt>measure</dt>
 <dd><p>the name of the R-squared calculated.</p></dd>
+
+
 <dt>R2</dt>
 <dd><p>realized value of the computed R2.</p></dd>
+
+
 <dt>adj</dt>
 <dd><p>adjusted R2, only available when McFadden's R2 is computed.</p></dd>
+
+
 <dt>sqrt.R2</dt>
 <dd><p>Modified R2 with a square root penalty, only available when
 the Ugba &amp; Gertheiss's R2 is computed.</p></dd>
+
+
 <dt>log.R2</dt>
 <dd><p>Modified R2 with a logarithmic penalty, only available when
 the Ugba &amp; Gertheiss's is computed.</p></dd>
+
 </dl></div>
     <div id="details">
     <h2>Details</h2>
@@ -104,18 +116,18 @@ Workshop on Statistical Modelling</em>, Bristol, 293-298.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">pom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="va">RET</span><span class="op">)</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>, link<span class="op">=</span><span class="st">"logit"</span>,</span>
-<span class="r-in">            slope <span class="op">=</span> <span class="st">"parallel"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span>, data <span class="op">=</span> <span class="va">retinopathy</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">Rsquared</span><span class="op">(</span><span class="va">pom</span>, measure <span class="op">=</span> <span class="st">"mcfadden"</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ejikeugba/serp" class="external-link">serp</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">pom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/serp/man/serp.html" class="external-link">serp</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">ordered</a></span><span class="op">(</span><span class="va">RET</span><span class="op">)</span> <span class="op">~</span> <span class="va">DIAB</span> <span class="op">+</span> <span class="va">GH</span> <span class="op">+</span> <span class="va">BP</span>, link<span class="op">=</span><span class="st">"logit"</span>,</span></span>
+<span class="r-in"><span>            slope <span class="op">=</span> <span class="st">"parallel"</span>, reverse <span class="op">=</span> <span class="cn">TRUE</span>, data <span class="op">=</span> <span class="va">retinopathy</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">Rsquared</span><span class="op">(</span><span class="va">pom</span>, measure <span class="op">=</span> <span class="st">"mcfadden"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">McFadden's R2: </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.18922 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">adj.R2 </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.18027 </span>
-<span class="r-in"><span class="fu">Rsquared</span><span class="op">(</span><span class="va">pom</span>, measure <span class="op">=</span> <span class="st">"ugba"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">Rsquared</span><span class="op">(</span><span class="va">pom</span>, measure <span class="op">=</span> <span class="st">"ugba"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">Ugba &amp; Gertheiss' R2: </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -124,7 +136,7 @@ Workshop on Statistical Modelling</em>, Bristol, 293-298.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">(log) </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 0.41854 </span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -139,7 +151,7 @@ Workshop on Statistical Modelling</em>, Bristol, 293-298.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
