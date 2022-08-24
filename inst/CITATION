@@ -1,0 +1,13 @@
+bibentry(
+  "Article",
+  title = "{gofcat}: An {R} Package for goodness-of-fit of categorical response models",
+author = c(person("Ejike R.", "Ugba")),
+  year = 2022,
+  journal = "Journal of Open Source Software",
+  volume = 7,
+  number = 76,
+  pages = 4382,
+  doi = "10.21105/joss.04382",
+  textVersion = "Ejike R. Ugba (2022). serp: An R Package for goodness-of-fit of categorical response models. Journal of Open Source Software,
+7(76), 4382. https://doi.org/10.21105/joss.04382"
+)
