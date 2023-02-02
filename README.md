@@ -22,20 +22,7 @@ status](https://ci.appveyor.com/api/projects/status/github/ejikeugba/gofcat?bran
 <!-- [![R buildstatus](https://github.com/ejikeugba/gofcat/workflows/R-CMD-check/badge.svg)](https://github.com/ejikeugba/gofcat/actions) -->
 ### Overview
 
-Crucial post-estimation (goodness-of-fit) tests for some widely used
-categorical response models (CRM) are implemented in this package. It
-currently supports inputs from objects of class serp(), clm(), polr(),
-multinom(), mlogit(), vglm() and glm(). Available tests include the
-Hosmer-Lemeshow tests for the binary, multinomial and ordinal logistic
-regression; the Lipsitz and the Pulkstenis-Robinson tests for the
-ordinal models. The proportional odds, adjacent-category, and
-constrained continuation-ratio models are particularly supported at
-ordinal level. Tests for the proportional odds assumptions in ordinal
-models are also possible with the Brant and the Likelihood-Ratio tests.
-Moreover, several summary measures of predictive strength (Pseudo
-R-squared), and some useful error metrics, including, the brier score,
-misclassification rate and logloss are also available for the binary,
-multinomial and ordinal models.
+Post-estimation (goodness-of-fit) tests for some widely used categorical response models (CRM). Package currently supports inputs from objects of class serp(), clm(), polr(), multinom(), mlogit(), vglm() and glm(). Available tests include the Hosmer-Lemeshow, the Lipsitz and the Pulkstenis-Robinson tests for the binary, multinomial and ordinal logistic regression models. The proportional odds, adjacent category, and constrained continuation-ratio models are particularly supported at the ordinal level. Tests for the proportional odds assumptions in ordinal models are also possible with the Brant and the Likelihood-Ratio tests. Moreover, several summary measures of predictive strength (Pseudo R-squared) and error measurement metrics (brier score, misclassification rate and logloss) are also available for the binary, multinomial and ordinal models.
 
 ### Example
 
@@ -128,14 +115,9 @@ By contributing to this project, you agree to abide by its terms.
 
 ### References
 
-Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of
-fit in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
+Ugba, E. R. and Gertheiss, J. (2023). A Modification of McFadden's $R^2$ for Binary and Ordinal Response Models. *Commun. Stat. Appl. Methods*, 
+30, 49--63. https://doi.org/10.29220/CSAM.2023.30.1.049
 
-Ugba, E. R. and Gertheiss, J. (2018). An Augmented Likelihood Ratio
-Index for Categorical Response Models. In *Proceedings of 33rd
-International Workshop on Statistical Modelling*, Bristol, 293-298.
-<http://www.statmod.org/workshops_archive_proceedings_2018.html>
+Ugba, E. R. (2022). gofcat: An R package for goodness-of-fit of categorical response models. Journal of Open Source Software, 7(76), 4382, https://doi.org/10.21105/joss.04382
 
-Ugba, E. R. (2021). serp: An R package for smoothing in ordinal
-regression *Journal of Open Source Software*, 6(66), 3705.
-<https://doi.org/10.21105/joss.03705>
+Fagerland, M. W. and Hosmer, D. W. (2017). How to test for goodness of fit in ordinal logistic regression models. *Stata Journal*, 17, 668-686.
