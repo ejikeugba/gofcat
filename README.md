@@ -116,7 +116,7 @@ By contributing to this project, you agree to abide by its terms.
 ### References
 
 Ugba, E. R. and Gertheiss, J. (2023). A Modification of McFadden's $R^2$ for Binary and Ordinal Response Models. *Commun. Stat. Appl. Methods*, 
-30, 49--63. https://doi.org/10.29220/CSAM.2023.30.1.049
+30, 49-63. https://doi.org/10.29220/CSAM.2023.30.1.049
 
 Ugba, E. R. (2022). gofcat: An R package for goodness-of-fit of categorical response models. Journal of Open Source Software, 7(76), 4382, https://doi.org/10.21105/joss.04382
 
